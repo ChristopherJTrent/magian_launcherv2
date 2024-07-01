@@ -26,6 +26,12 @@
  * ```
  */
 
+import { createRoot } from 'react-dom/client';
 import './index.css';
+import RootNode from './renderer/index';
 
 console.log('👋 This message is being logged by "renderer.ts", included via Vite');
+
+const container = document.getElementById('root') as HTMLElement
+const root = createRoot(container)
+root.render(RootNode())
