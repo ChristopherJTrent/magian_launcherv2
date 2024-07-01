@@ -1,0 +1,101 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+body {
+  position: relative;
+  color: white;
+  height: 100vh;
+  background: linear-gradient(
+    200.96deg,
+    #fedc2a -29.09%,
+    #dd5789 51.77%,
+    #7a2c9e 129.35%
+  );
+  font-family: sans-serif;
+  overflow-y: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+button {
+  background-color: white;
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  appearance: none;
+  font-size: 1.3rem;
+  box-shadow: 0px 8px 28px -6px rgba(24, 39, 75, 0.12),
+    0px 18px 88px -4px rgba(24, 39, 75, 0.14);
+  transition: all ease-in 0.1s;
+  cursor: pointer;
+  opacity: 0.9;
+}
+
+button:hover {
+  transform: scale(1.05);
+  opacity: 1;
+}
+
+li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  height: fit-content;
+  width: fit-content;
+  margin: 10px;
+}
+
+a:hover {
+  opacity: 1;
+  text-decoration: none;
+}
+
+.Hello {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.chakra-accordion__button:hover {
+  transform: none;
+  opacity: 1;
+}
+
+.chakra-switch__track[data-checked] {
+  background-color: #D35547;
+}
+
+.chakra-tabs__tab {
+  border-radius: 0px;
+  &:hover {
+    transform: none;
+  }
+}
+.chakra-tabs__tablist {
+  background-color: #313541;
+  border-right: 1px solid rgb(64, 64, 68) !important;
+}
+
+.titlebar {
+  background-color: #282C37;
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+  margin-bottom: 5px;
+}
+
+* {
+  &::-webkit-scrollbar {
+    background-color: rgba(0,0,0,0);
+    width: 4px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color:#D35547;
+    margin-left: 4px;
+    border-radius: 4px;
+  }
+}
