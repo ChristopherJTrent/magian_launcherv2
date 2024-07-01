@@ -35,8 +35,8 @@ export default async function handleApplicationLoad(dispatch: AppDispatch):Promi
       func:async () => {
         const addons = await ipc.getAddons()
         addons.forEach(addon => {
-          dispatch(receiveHook({
-            name: `Get Addon Data: ${addon}`,
+          
+            dispatch()`Get Addon Data: ${addon}`,
             func: async () => {
               const addonData = await ipc.getAddonData(addon)
               dispatch(receiveAddon(new Addon(addon, addonData.author, addonData.version, addonData.desc, addonData.link)))
