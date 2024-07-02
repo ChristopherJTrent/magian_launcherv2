@@ -1,3 +1,4 @@
+/* eslint-disable promise/always-return */
 import { IpcMain, IpcMainInvokeEvent } from "electron"
 import { readdir } from "fs/promises"
 import { existsSync } from "fs"
@@ -70,35 +71,53 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
     },
     {
       channel: 'magian:ensureGit',
-      listener: async (_) => {
-        try{
-          ensureGit()
-        } catch (err) {
-          console.log(`goddamn electron morons fuck you ${err}`)
-        }
-      }
+      listener: async (_) => { ensureGit() }
     },
-    {
-      channel: 'magian:ensureProfiles',
-      listener: async (_) => {
-        if((await readdir(PROFILE_LOCATION, {withFileTypes: true}))
-          .filter(entry => entry.isDirectory())
-          .filter(entry => existsSync(`${PROFILE_LOCATION}\\${entry.name}\\profile.json`))
-          .length === 0) {
-            await saveProfile(initialProfiles.list.default)
-            return saveProfile(initialProfiles.list.omicron)
-        }
-        return undefined
-      }
-    }
   ]
   handlers.forEach((v) => ipcMain.handle(v.channel, v.listener))
   ipcMain.on('magian:legacy:installAshita', (e) => {
     try{
     console.log('received ashita update request')
-    updateAshita().then((v) => {
-      console.log(v)
-      e.reply('magian:legacy:installAshita:reply')
+    // eslint-disable-next-line promise/always-return, promise/catch-or-return
+    ensureGit().then(() => {
+      // eslint-disable-next-line promise/catch-or-return, promise/always-return, promise/no-nesting
+      updateAshita().then((v) => {
+        console.log(v)
+        e.reply('magian:legacy:installAshita:reply')
+      })
     })
-  } catch(err) {console.log(`double fuck you ${err}`)}})
+  } catch(err) {console.log(`${err}`)}})
+  ipcMain.on('magian:ensureProfiles', (e) => {
+    const doProfiles = () => {
+      console.log('doing profiles')
+      return saveProfile(initialProfiles.list.default).then(() => {
+        console.log('successfully saved default')
+        return saveProfile(initialProfiles.list.omicron).then(() => {
+          console.log('successfully saved omicron')
+          e.reply('magian:ensureProfiles:reply')
+        }).catch((e) => {console.log(e)})
+      }).catch((e) => { console.log(e)})
+    }
+
+    console.log('ensuring profiles')
+
+    if(!existsSync(PROFILE_LOCATION)) {
+      doProfiles()
+    } else {
+      // eslint-disable-next-line consistent-return
+      readdir(PROFILE_LOCATION, {withFileTypes: true}).then(entries => {
+        if(entries
+          .filter(entry => entry.isDirectory())
+          .filter(entry => existsSync(`${PROFILE_LOCATION}\\${entry.name}\\profile.json`))
+          .length === 0) {
+            doProfiles()
+          } else {
+            e.reply('magian:ensureProfiles:reply')
+          }
+        }).catch((e) => {
+          console.log(e)
+        })
+      }
+    }
+  )
 }

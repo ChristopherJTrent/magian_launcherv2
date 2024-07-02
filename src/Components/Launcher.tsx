@@ -2,7 +2,7 @@ import { Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
 import { RiProfileLine } from 'react-icons/ri'
 import { SiCplusplus, SiLua } from 'react-icons/si'
 import { FaGear } from 'react-icons/fa6'
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Mutex } from "async-mutex"
 import AddonListing from "./Widgets/Tabs/Addons/AddonListing"
 import AppLayout from "./Layouts/App"
@@ -10,23 +10,40 @@ import SettingsEditor from "./Widgets/SettingsEditor"
 import GamepadEditor from "./Widgets/GamepadEditor"
 import ProfileListing from "./Widgets/Tabs/Profiles/ProfileListing"
 import PluginListing from "./Widgets/Tabs/Plugins/PluginListing"
-import { useAppDispatch, useAppSelector } from "../lib/store/store"
+import { useAppDispatch } from "../lib/store/store"
 import handleApplicationLoad from "../lib/util/Installation/Loader"
 import PolPluginListing from "./Widgets/PolPluginListing"
 
 export default function Launcher() {
   // const remainingHooks = useAppSelector(state => state.flags.remainingHooks)
-  const mutex = useRef(new Mutex())
-  const loader = useAppSelector(state => state.loader)
   const dispatch = useAppDispatch()
-
+  const [currentHook, setCurrentHook] = useState('updating ashita')
   useEffect(() => {
     try{
-      handleApplicationLoad(dispatch).then((v) => {
-        return v.forEach(v1 => mutex.current.runExclusive(v1.func))
-      }).catch(() => {})
+      window.electron.ipcRenderer.newUpdateAshita()
+
+      window.electron.ipcRenderer.onUpdateAshita(() => {
+        setCurrentHook('ensuring profiles')
+        window.electron.ipcRenderer.ensureProfiles()
+      })
+      window.electron.ipcRenderer.onEnsureProfiles(() => {
+        // eslint-disable-next-line promise/catch-or-return, promise/always-return
+        handleApplicationLoad(dispatch).then(v => {
+          // eslint-disable-next-line @typescript-eslint/no-shadow
+          v.forEach((v2) => {
+            setCurrentHook(v2.name)
+            // eslint-disable-next-line promise/catch-or-return
+            v2.func().then(() => {
+              // eslint-disable-next-line promise/always-return
+              if (v2.name === "Load Playonline Plugins") {
+                setCurrentHook('')
+              }
+            })
+          })
+        })
+      })
     } catch (e) {
-      console.log(`fuck you: ${e}`)
+      console.log(`aargh: ${e}`)
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -43,7 +60,7 @@ export default function Launcher() {
   // }, [loader, remainingHooks, dispatch])
   return (
   <AppLayout>
-    {loader.hooks.length === 0 &&
+    {currentHook.length === 0 &&
     <Tabs width='100%' height='calc(100vh - 30px)' orientation="vertical"
     sx={{
       '.chakra-tabs__tablist': {
@@ -151,7 +168,7 @@ export default function Launcher() {
         </TabPanel>
       </TabPanels>
     </Tabs> || <Flex justify='center' align='center' width='100%' height='calc(100vh - 30px)'>
-      <h1>Running Hook: {loader.currentHook}</h1>
+      <h1>Running Hook: {currentHook}</h1>
     </Flex>
     }
   </AppLayout>

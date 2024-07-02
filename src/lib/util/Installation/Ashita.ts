@@ -4,6 +4,7 @@ import ensureInstallLocation from "./Launcher"
 export default async function updateAshita():Promise<void> {
   ensureInstallLocation()
   const ashitaStatus = await getAshitaStatus()
+  console.log(ashitaStatus)
   switch(ashitaStatus) {
     case 'uninstalled':
       return installAshita()

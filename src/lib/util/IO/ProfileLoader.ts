@@ -17,10 +17,10 @@ export async function loadProfiles():Promise<Profile[]> {
 export async function saveProfile(input:Profile):Promise<void> {
   const PROFILE_DIR = `${PROFILE_LOCATION}\\${input.name}`
   if (!existsSync(PROFILE_DIR)) {
-    await mkdir(PROFILE_DIR)
+    await mkdir(PROFILE_DIR, {recursive:true})
   }
   if (!existsSync(CONFIGURATION_LOCATION)) {
-    await mkdir(CONFIGURATION_LOCATION)
+    await mkdir(CONFIGURATION_LOCATION, {recursive: true})
   }
   try{
     await writeFile(`${PROFILE_DIR}\\profile.json`, JSON.stringify(input, null, 2), { flag: 'w+'})

@@ -13,35 +13,21 @@ export default async function handleApplicationLoad(dispatch: AppDispatch):Promi
   const ipc = window.electron.ipcRenderer
   return [
     {
-      name: 'Ensure Git',
-      func: async () => {return ipc.ensureGit()},
-    },
-    {
-      name: 'Update Ashita',
-      func: async () => {
-        return ipc.newUpdateAshita()
-      },
-    },
-    {
-      name: 'ensure profile presence',
-      func: async () => {return ipc.ensureProfiles()}
-    },
-    {
       name: 'Load Profiles',
-      func: async () => {return dispatch(receiveProfiles(await ipc.loadProfiles()))},
+      func: async () => {
+        console.log('attempting to load profiles')
+        return dispatch(receiveProfiles(await ipc.loadProfiles()))
+      },
     },
     {
       name: 'Load Addons',
       func:async () => {
         const addons = await ipc.getAddons()
         addons.forEach(addon => {
-          
-            dispatch()`Get Addon Data: ${addon}`,
-            func: async () => {
-              const addonData = await ipc.getAddonData(addon)
-              dispatch(receiveAddon(new Addon(addon, addonData.author, addonData.version, addonData.desc, addonData.link)))
-            }
-          }))
+          ipc.getAddonData(addon).then((addonData) => {
+            console.log(addonData)
+            return dispatch(receiveAddon(new Addon(addon, addonData.author, addonData.version, addonData.desc, addonData.link)))
+          }).catch((e) => console.log(e))
         })
       }
     },

@@ -13,12 +13,29 @@ registerIPCCallbacks(ipcMain)
 updateElectronApp()
 
 const createWindow = () => {
+
+  const RESOURCES_PATH = app.isPackaged
+  ? path.join(process.resourcesPath, 'assets')
+  : path.join(__dirname, '../../assets')
+
+const getAssetPath = (...paths: string[]): string => {
+  return path.join(RESOURCES_PATH, ...paths)
+}
+
+  
   // Create the browser window.
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 550,
+    height: 800,
+    icon: getAssetPath('favicon.ico'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
+    },
+    titleBarStyle:"hidden",
+    titleBarOverlay: {
+      color: '#282C37',
+      symbolColor: '#FFF',
+      height: 30,
     },
   });
 

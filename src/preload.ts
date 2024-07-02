@@ -1,6 +1,3 @@
-// See the Electron documentation for details on how to use preload scripts:
-// https://www.electronjs.org/docs/latest/tutorial/process-model#preload-scripts
-
 // Disable no-unused-vars, broken for spread args
 /* eslint no-unused-vars: off */
 import { contextBridge, ipcRenderer} from 'electron'
@@ -24,13 +21,16 @@ const electronHandler = {
     launchAshita: (profileName:string) => { ipcRenderer.invoke('magian:startAshita', profileName)},
     ensureGit: () => ipcRenderer.invoke('magian:ensureGit') as Promise<void>,
     getAddonData: (name: string) => ipcRenderer.invoke('ashita:getAddonData',name) as Promise<AddonData>,
-    ensureProfiles: () => ipcRenderer.invoke('magian:ensureProfiles') as Promise<void>,
-    newUpdateAshita: () => {
-      return new Promise<void>((resolve, _reject) => {
-        ipcRenderer.send('magian:legacy:installAshita')
-        ipcRenderer.on('magian:legacy:installAshita:reply', (_) => {
-          resolve()
-        })
+    ensureProfiles: () => ipcRenderer.send('magian:ensureProfiles'),
+    newUpdateAshita: () => { ipcRenderer.send('magian:legacy:installAshita') },
+    onUpdateAshita: ( callback: () => void) => {
+      ipcRenderer.on('magian:legacy:installAshita:reply', (_) => {
+        callback()
+      })
+    },
+    onEnsureProfiles: (callback: () => void) => {
+      ipcRenderer.on('magian:ensureProfiles:reply', (_) => {
+        callback()
       })
     }
   },
