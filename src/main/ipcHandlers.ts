@@ -1,4 +1,3 @@
-/* eslint-disable promise/always-return */
 import { IpcMain, IpcMainInvokeEvent } from "electron"
 import { readdir } from "fs/promises"
 import { existsSync } from "fs"
@@ -12,7 +11,7 @@ import { PROFILE_LOCATION, ensureGit } from "../lib/util/Installation/paths"
 import { getAddonData } from "../lib/util/helpers/getExtensionData"
 import { initialProfiles } from "../lib/data/DefaultProfile"
 
-type IPCHandler = {channel: string, listener: (event:IpcMainInvokeEvent, ...args: any[]) => Promise<any>}
+type IPCHandler = {channel: string, listener: (event:IpcMainInvokeEvent, ...args: any[]) => Promise<unknown>}
 
 export default function registerIPCCallbacks(ipcMain:IpcMain):void {
   const handlers:IPCHandler[] = [
@@ -78,9 +77,7 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
   ipcMain.on('magian:legacy:installAshita', (e) => {
     try{
     console.log('received ashita update request')
-    // eslint-disable-next-line promise/always-return, promise/catch-or-return
     ensureGit().then(() => {
-      // eslint-disable-next-line promise/catch-or-return, promise/always-return, promise/no-nesting
       updateAshita().then((v) => {
         console.log(v)
         e.reply('magian:legacy:installAshita:reply')

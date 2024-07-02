@@ -84,6 +84,7 @@ a:hover {
 .titlebar {
   background-color: #282C37;
   -webkit-user-select: none;
+  user-select: none;
   -webkit-app-region: drag;
   margin-bottom: 5px;
 }
