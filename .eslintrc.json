@@ -12,5 +12,17 @@
     "plugin:import/electron",
     "plugin:import/typescript"
   ],
-  "parser": "@typescript-eslint/parser"
+  "parser": "@typescript-eslint/parser",
+  "rules": {
+    "no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "^_",
+        "ignoreRestSiblings": true,
+        "reportUsedIgnorePattern": true,
+        "caughtErrors": "all",
+        "caughtErrorsIgnorePattern": "^_[eE]"
+      }
+    ]
+  }
 }
