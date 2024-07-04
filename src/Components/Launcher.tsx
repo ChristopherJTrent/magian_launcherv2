@@ -3,7 +3,6 @@ import { RiProfileLine } from 'react-icons/ri'
 import { SiCplusplus, SiLua } from 'react-icons/si'
 import { FaGear } from 'react-icons/fa6'
 import { useEffect, useRef, useState } from "react"
-import { Mutex } from "async-mutex"
 import AddonListing from "./Widgets/Tabs/Addons/AddonListing"
 import AppLayout from "./Layouts/App"
 import SettingsEditor from "./Widgets/SettingsEditor"
