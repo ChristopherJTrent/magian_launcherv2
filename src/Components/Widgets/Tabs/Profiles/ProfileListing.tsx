@@ -13,9 +13,14 @@ export default function ProfileListing() {
   //     return dispatch(receiveProfiles(v))
   //   }).catch(_ => {})
   // }, [dispatch])
-  return <ul>
-    {Object.keys(profiles).map((v) => <li key={v}>
-      <ProfileElement profileName={v} />
-      </li>)}
-  </ul>
+  return <>
+    <ul>
+      {Object.keys(profiles).map((v) => <li key={v}>
+        <ProfileElement profileName={v} />
+        </li>)}
+    </ul>
+    <Flex direction='row-reverse'>
+      <NewProfileForm />
+    </Flex>
+  </>
 }
