@@ -1,5 +1,23 @@
 import AshitaSettings from "./AshitaSettings"
 
+export const defaultPlugins = [
+  'thirdparty',
+  'addons',
+  'screenshot',
+]
+
+export const defaultAddons = [
+  'distance',
+  'fps',
+  'move',
+  'timestamp',
+  'tparty',
+]
+
+export const defaultPolPlugins = [
+  'sandbox'
+]
+
 export default class Profile {
   public name:string
 
