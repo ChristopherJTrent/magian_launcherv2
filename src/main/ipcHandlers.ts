@@ -76,27 +76,21 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
   handlers.forEach((v) => ipcMain.handle(v.channel, v.listener))
   ipcMain.on('magian:legacy:installAshita', (e) => {
     try{
-    console.log('received ashita update request')
     ensureGit().then(() => {
       updateAshita().then((v) => {
-        console.log(v)
         e.reply('magian:legacy:installAshita:reply')
       })
     })
-  } catch(err) {console.log(`${err}`)}})
+  } catch(err) {}})
   ipcMain.on('magian:ensureProfiles', (e) => {
     const doProfiles = () => {
-      console.log('doing profiles')
       return saveProfile(initialProfiles.list.default).then(() => {
-        console.log('successfully saved default')
         return saveProfile(initialProfiles.list.omicron).then(() => {
-          console.log('successfully saved omicron')
           e.reply('magian:ensureProfiles:reply')
-        }).catch((e) => {console.log(e)})
-      }).catch((e) => { console.log(e)})
+        }).catch()
+      }).catch()
     }
 
-    console.log('ensuring profiles')
 
     if(!existsSync(PROFILE_LOCATION)) {
       doProfiles()
@@ -112,7 +106,6 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
             e.reply('magian:ensureProfiles:reply')
           }
         }).catch((e) => {
-          console.log(e)
         })
       }
     }

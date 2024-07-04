@@ -42,7 +42,7 @@ export default function Launcher() {
         })
       })
     } catch (e) {
-      console.log(`aargh: ${e}`)
+      
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

@@ -15,7 +15,6 @@ export default async function handleApplicationLoad(dispatch: AppDispatch):Promi
     {
       name: 'Load Profiles',
       func: async () => {
-        console.log('attempting to load profiles')
         return dispatch(receiveProfiles(await ipc.loadProfiles()))
       },
     },
@@ -25,9 +24,8 @@ export default async function handleApplicationLoad(dispatch: AppDispatch):Promi
         const addons = await ipc.getAddons()
         addons.forEach(addon => {
           ipc.getAddonData(addon).then((addonData) => {
-            console.log(addonData)
             return dispatch(receiveAddon(new Addon(addon, addonData.author, addonData.version, addonData.desc, addonData.link)))
-          }).catch((e) => console.log(e))
+          }).catch()
         })
       }
     },

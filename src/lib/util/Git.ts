@@ -9,10 +9,8 @@ function spawnGitProcess(args:string[], opts?:ExecOptions):ChildProcess {
     windowsHide: true,
     ...opts
   }, (error, stdout, stderr) => {
-    console.log(`stdout: ${stdout}`)
-    console.log(`stderr: ${stderr}`)
   })
-  proc.on('error', (e) => {console.log(`what the fuck: ${e}`)})
+  proc.on('error', (e) => {})
   return proc
 }
 
@@ -27,16 +25,12 @@ export async function getAshitaStatus():Promise<installStatus> {
     const proc = spawnGitProcess(
       ['status'])
     proc.stdout?.on('data', (data) => {
-      console.log(`received chunk from git: ${data.toString()}`)
       string += data.toString()
-      console.log(string)
     })
     proc.stdout?.on('end', () => {
-      console.log(`git result: ${string}`)
       resolve(/up to date/.test(string) ? 'up-to-date' : 'behind')
     })
     proc.on('exit', (code) => {
-      console.log(`git exit code: ${code}`)
       if (code !== 0 && code !== 128) {_reject(new Error('exit code not 0'))}
       else {
         resolve('up-to-date')
@@ -68,7 +62,6 @@ export async function pullAshita():Promise<void> {
        // cwd: ASHITA_LOCATION
       }).on('exit', resolve)
     } catch (err) {
-      console.log(err)
       _reject()
     }
     }
@@ -76,10 +69,8 @@ export async function pullAshita():Promise<void> {
 }
 
 export function installAshita():Promise<void> {
-  console.log('running installAshita')
   return new Promise((resolve, _reject) => {
     try{
-      console.log('creating promise for installAshita')
       let string = 'Proc output: '
       let string2 = 'Proc error: '
       const proc = spawnGitProcess([
@@ -90,17 +81,13 @@ export function installAshita():Promise<void> {
       // @ts-ignore
       proc.stdout.on('data', (chunk) => {
         string += chunk.toString()
-        console.log(string)
       })
       proc.stdout?.on('end', () => {
-        console.log(string)
       })
       // @ts-ignore
       proc.stderr.on('data', (chunk) => {
         string2 += chunk.toString()
-        console.log(string)
       })
-      proc.stderr?.on('end', () => console.log(string2))
       proc.on('close', () => {resolve()})
     } catch(e) {
     }

@@ -2,8 +2,6 @@ import { spawnSync } from 'child_process'
 import { ASHITA_LOCATION } from '../Installation/paths'
 
 export default async function spawnAshita(scriptName:string) {
-  console.log(scriptName)
-  console.log(ASHITA_LOCATION)
   try{
 
     const bat = spawnSync(
@@ -24,7 +22,5 @@ export default async function spawnAshita(scriptName:string) {
       }
     )
   } catch (e) {
-    console.log(e)
   }
-  console.log(bat.output.toString())
 }

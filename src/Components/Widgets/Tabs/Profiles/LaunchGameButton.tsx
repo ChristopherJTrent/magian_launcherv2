@@ -17,7 +17,6 @@ export default function LaunchGameButton({profileName}:LaunchGameButtonProps) {
       dispatch(receiveHook({
         name: 'Save Profile',
         func: async () => {
-          console.log('saving profile')
           //window.electron.ipcRenderer.saveScript(profile)
           dispatch(resetChangeProfile())
         }
