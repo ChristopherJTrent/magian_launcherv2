@@ -12,6 +12,6 @@ export default function EditableControls() {
       <IconButton icon={<CloseIcon boxSize={3} />} {...getCancelButtonProps()} aria-label='Cancel' />
     </ButtonGroup>
   ) : (
-    <IconButton size='sm' icon={<EditIcon />} {...getEditButtonProps()} aria-label='Edit' />
+    <IconButton icon={<EditIcon />} {...getEditButtonProps()} aria-label='Edit' />
   )
 }
