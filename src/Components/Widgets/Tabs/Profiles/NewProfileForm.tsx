@@ -1,8 +1,8 @@
 import { AddIcon } from "@chakra-ui/icons"
 import { Box, Button, Drawer, DrawerCloseButton, DrawerContent, DrawerOverlay, Editable, EditableInput, EditablePreview, Flex, IconButton, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalHeader, ModalOverlay, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Text, useDisclosure } from "@chakra-ui/react"
 import { useState } from "react"
-import CustomEditablePreview from "./customEditablePreview"
-import EditableControls from "./EditableControls"
+import CustomEditablePreview from "../../customEditablePreview"
+import EditableControls from "../../EditableControls"
 
 export default function NewProfileForm() {
   const {isOpen, onOpen, onClose} = useDisclosure()
