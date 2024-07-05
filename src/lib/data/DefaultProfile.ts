@@ -5,7 +5,7 @@ export type profilesMapping = {
   list: {[name:string]: Profile}
 }
 
-const omicron = new Profile('Omicron XI', [], [], true)
+const omicron = new Profile('Omicron XI', [], [], [], true)
 omicron.settings.bootFile = '.\\bootloader\\xiloader.exe'
 omicron.settings.bootCommand = '--server OmicronFFXI.com'
 
@@ -25,7 +25,8 @@ export const initialProfiles:profilesMapping = {
         'thirdparty',
         'addons',
         'screenshot'
-      ]
+      ],
+      []
     ),
     'omicron': omicron
   }

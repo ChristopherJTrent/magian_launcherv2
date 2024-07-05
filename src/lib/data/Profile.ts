@@ -31,7 +31,7 @@ export default class Profile {
 
   public serverType: ('retail'|'private')
 
-  constructor(name: string, enabledAddons:string[] = [], enabledPlugins:string[] = [], enabledPolPlugins:string[], isPrivate: boolean = false) {
+  constructor(name: string, enabledAddons:string[] = [], enabledPlugins:string[] = [], enabledPolPlugins:string[] = [], isPrivate: boolean = false) {
     this.name = name
     this.enabledAddons = enabledAddons
     this.enabledPlugins = enabledPlugins
