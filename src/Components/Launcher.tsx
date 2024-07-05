@@ -146,7 +146,7 @@ export default function Launcher() {
       </TabList>
       <TabPanels>
         <TabPanel>
-          <Flex overflowY='auto' flexDirection='column' height='80vh'>
+          <Flex overflowY='auto' flexDirection='column' height='calc(100vh - 62px)'>
             <ProfileListing />
           </Flex>
         </TabPanel>
