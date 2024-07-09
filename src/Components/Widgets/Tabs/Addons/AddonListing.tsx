@@ -1,10 +1,16 @@
 import {  Flex, List } from "@chakra-ui/react"
-import { useAppSelector } from "../../../../lib/store/store"
+import { useAppSelector } from "@store/store"
 import AddonElement from "./AddonElement"
 import AddonSaveButton from "./AddonSaveButton"
+import { useEffect } from "react"
+import { currentProfile } from "@store/ProfileReducer"
 
 export default function AddonListing() {
   const addons = useAppSelector(state => state.addons)
+  const profile = useAppSelector(currentProfile)
+  useEffect(() => {
+    console.log(profile)
+  })
   return <>
     <Flex
         direction='column'

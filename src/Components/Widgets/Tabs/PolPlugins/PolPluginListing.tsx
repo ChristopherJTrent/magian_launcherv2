@@ -1,5 +1,5 @@
 import { List } from "@chakra-ui/react"
-import { useAppSelector } from "../../../../lib/store/store"
+import { useAppSelector } from "@store/store"
 import PolPluginElement from "./PolPluginElement"
 
 

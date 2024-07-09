@@ -1,7 +1,7 @@
 import { Button, Flex } from "@chakra-ui/react"
 import { CheckIcon } from "@chakra-ui/icons"
-import { useAppSelector } from "../../../../lib/store/store"
-import { currentProfile } from "../../../../lib/store/ProfileReducer"
+import { useAppSelector } from "@store/store"
+import { currentProfile } from "@store/ProfileReducer"
 
 export default function AddonSaveButton() {
   const profile = useAppSelector(currentProfile)

@@ -1,8 +1,8 @@
 import { IconButton } from "@chakra-ui/react"
 import { CiPlay1 } from 'react-icons/ci'
-import { useAppDispatch, useAppSelector } from "../../../../lib/store/store"
-import { resetChangeProfile } from "../../../../lib/store/flagsReducer"
-import { receiveHook } from "../../../../lib/store/loaderReducer"
+import { useAppDispatch, useAppSelector } from "@store/store"
+import { resetChangeProfile } from "@store/flagsReducer"
+import { receiveHook } from "@store/loaderReducer"
 
 type LaunchGameButtonProps = {
   profileName: string

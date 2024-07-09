@@ -1,6 +1,6 @@
 import { Flex, Text } from "@chakra-ui/react"
 import LaunchGameButton from "./LaunchGameButton"
-import { useAppSelector } from "../../../../lib/store/store"
+import { useAppSelector } from "@store/store"
 import TextHighlight from "../../TextHighlight"
 import SetActiveProfileButton from "./SetActiveProfileButton"
 

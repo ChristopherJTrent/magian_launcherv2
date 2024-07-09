@@ -1,7 +1,7 @@
 import { AccordionItem, AccordionPanel, Divider, Editable, EditableInput, Flex, Select, Switch, Text } from "@chakra-ui/react"
 import AccordButton from "../AccordButton"
-import { useAppDispatch, useAppSelector } from "../../../lib/store/store"
-import { currentProfile, setSettingsValue } from "../../../lib/store/ProfileReducer"
+import { useAppDispatch, useAppSelector } from "@store/store"
+import { currentProfile, setSettingsValue } from "@store/ProfileReducer"
 import CustomEditablePreview from "../customEditablePreview"
 import EditableControls from "../EditableControls"
 

@@ -1,7 +1,7 @@
 import { IconButton } from "@chakra-ui/react"
 import { EditIcon } from "@chakra-ui/icons"
-import { useAppDispatch, useAppSelector } from "../../../../lib/store/store"
-import { currentProfile, setActiveProfile } from "../../../../lib/store/ProfileReducer"
+import { useAppDispatch, useAppSelector } from "@store/store"
+import { currentProfile, setActiveProfile } from "@store/ProfileReducer"
 
 type SetActiveProfileButtonProps = {
   profileName: string

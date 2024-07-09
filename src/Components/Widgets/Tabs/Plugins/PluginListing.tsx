@@ -1,6 +1,6 @@
 import { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "../../../../lib/store/store"
-import { receiveplugins } from "../../../../lib/store/pluginsReducer"
+import { useAppDispatch, useAppSelector } from "@store/store"
+import { receiveplugins } from "@store/pluginsReducer"
 import PluginElement from "./PluginElement"
 import AddonSaveButton from "../Addons/AddonSaveButton"
 

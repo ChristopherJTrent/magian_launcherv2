@@ -1,6 +1,6 @@
 import { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "../../../../lib/store/store"
-import { receiveProfiles } from "../../../../lib/store/ProfileReducer"
+import { useAppDispatch, useAppSelector } from "@store/store"
+import { receiveProfiles } from "@store/ProfileReducer"
 import ProfileElement from "./ProfileElement"
 import { Flex } from "@chakra-ui/react"
 import NewProfileForm from "./NewProfileForm"

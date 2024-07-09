@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { Flex, Select, Switch } from "@chakra-ui/react"
-import { useAppDispatch, useAppSelector } from "../../lib/store/store"
-import { setBinding, setToggle } from "../../lib/store/GamepadSettings"
+import { useAppDispatch, useAppSelector } from "@store/store"
+import { setBinding, setToggle } from "@store/GamepadSettings"
 import { DInputBindings, DInputButtons, XInputBindings, XInputButtons } from "../../lib/util/Config/RegistryDefinition"
 
 type UIDef = {

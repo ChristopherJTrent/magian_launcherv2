@@ -1,9 +1,9 @@
 import { EditableInput, Flex, NumberDecrementStepper, NumberIncrementStepper, NumberInput, NumberInputField, NumberInputStepper, Switch, Text } from "@chakra-ui/react"
-import { currentProfile, setSettingsValue } from "../../../../lib/store/ProfileReducer"
-import { useAppDispatch, useAppSelector } from "../../../../lib/store/store"
+import { currentProfile, setSettingsValue } from "@store/ProfileReducer"
+import { useAppDispatch, useAppSelector } from "@store/store"
 import CustomEditablePreview from "../../customEditablePreview"
 import EditableControls from "../../EditableControls"
-import { changeProfile } from "../../../../lib/store/flagsReducer"
+import { changeProfile } from "@store/flagsReducer"
 
 type RegistryFieldProps = {
   fieldName: string

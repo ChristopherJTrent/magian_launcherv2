@@ -1,15 +1,15 @@
 import { useSelector } from "react-redux"
 import { Flex, Switch } from "@chakra-ui/react"
-import { pluginEnabled, setPluginDisabled, setPluginEnabled } from "../../../../lib/store/ProfileReducer"
-import { useAppDispatch } from "../../../../lib/store/store"
-import { changeProfile } from "../../../../lib/store/flagsReducer"
+import { extensionEnabled, setPluginDisabled, setPluginEnabled } from "@store/ProfileReducer"
+import { useAppDispatch } from "@store/store"
+import { changeProfile } from "@store/flagsReducer"
 
 export type PluginElementProps = {
   plugin: string
 }
 
 export default function PluginElement({plugin}:PluginElementProps) {
-  const enabled = useSelector(pluginEnabled(plugin))
+  const enabled = useSelector(extensionEnabled(plugin, 'enabledPlugins'))
   const dispatch = useAppDispatch()
 
   const togglePlugin = () => {

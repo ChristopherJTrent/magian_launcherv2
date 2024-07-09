@@ -9,7 +9,7 @@ import SettingsEditor from "./Widgets/SettingsEditor"
 import GamepadEditor from "./Widgets/GamepadEditor"
 import ProfileListing from "./Widgets/Tabs/Profiles/ProfileListing"
 import PluginListing from "./Widgets/Tabs/Plugins/PluginListing"
-import { useAppDispatch } from "../lib/store/store"
+import { useAppDispatch } from "@store/store"
 import handleApplicationLoad from "../lib/util/Installation/Loader"
 import PolPluginListing from "./Widgets/Tabs/PolPlugins/PolPluginListing"
 

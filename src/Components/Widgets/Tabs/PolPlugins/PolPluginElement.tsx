@@ -1,7 +1,7 @@
 import { ListItem, Switch } from "@chakra-ui/react"
-import { changeProfile } from "lib/store/flagsReducer"
-import { disablePolPlugin, enablePolPlugin, extensionEnabled } from "lib/store/ProfileReducer"
-import { useAppDispatch, useAppSelector } from "lib/store/store"
+import { changeProfile } from "@store/flagsReducer"
+import { disablePolPlugin, enablePolPlugin, extensionEnabled } from "@store/ProfileReducer"
+import { useAppDispatch, useAppSelector } from "@store/store"
 
 type PolPluginElementProps = {
     name: string

@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux"
 import { Divider, Flex, ListItem, Switch, Text } from "@chakra-ui/react"
-import { addonEnabled, extensionEnabled, setAddonDisabled, setAddonEnabled } from "../../../../lib/store/ProfileReducer"
-import { useAppDispatch } from "../../../../lib/store/store"
-import { changeProfile } from "../../../../lib/store/flagsReducer"
+import { addonEnabled, extensionEnabled, setAddonDisabled, setAddonEnabled } from "@store/ProfileReducer"
+import { useAppDispatch } from "@store/store"
+import { changeProfile } from "@store/flagsReducer"
 import Addon from "../../../../lib/data/Addon"
 
 export type AddonElementProps = {

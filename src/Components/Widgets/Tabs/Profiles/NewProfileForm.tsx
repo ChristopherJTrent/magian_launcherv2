@@ -25,8 +25,8 @@ import {
 import { useState } from "react"
 import EditableControls from "../../EditableControls"
 import Profile, { defaultAddons, defaultPlugins, defaultPolPlugins } from "../../../../lib/data/Profile"
-import { useAppDispatch } from "../../../../lib/store/store"
-import { receiveProfile } from "../../../../lib/store/ProfileReducer"
+import { useAppDispatch } from "@store/store"
+import { receiveProfile } from "@store/ProfileReducer"
 
 export default function NewProfileForm() {
   const {isOpen, onOpen, onClose} = useDisclosure()

@@ -2,8 +2,8 @@ import { AccordionItem, AccordionPanel, Divider, Flex, Select, Switch, Text } fr
 import { useState } from "react"
 import AccordButton from "../AccordButton"
 import RegistryField from "./components/RegistryField"
-import { useAppDispatch } from "../../../lib/store/store"
-import { setSettingsValue } from "../../../lib/store/ProfileReducer"
+import { useAppDispatch } from "@store/store"
+import { setSettingsValue } from "@store/ProfileReducer"
 
 export default function RegistryEditor() {
   const [advanced, setAdvanced] = useState(false)
