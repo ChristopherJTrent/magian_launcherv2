@@ -1,4 +1,4 @@
-import { Flex, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
+import { Flex, Spinner, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react"
 import { RiProfileLine } from 'react-icons/ri'
 import { SiCplusplus, SiLua } from 'react-icons/si'
 import { FaGear } from 'react-icons/fa6'
@@ -166,8 +166,14 @@ export default function Launcher() {
           <GamepadEditor />
         </TabPanel>
       </TabPanels>
-    </Tabs> || <Flex justify='center' align='center' width='100%' height='calc(100vh - 30px)'>
-      <h1>Running Hook: {currentHook}</h1>
+    </Tabs> || <Flex justify='center' align='center' width='100%' height='calc(100vh - 30px)' direction='column'>
+      <Text fontWeight={700} marginBottom={"1em"}>Running Hook: {currentHook}</Text>
+      <Spinner 
+        size='xl'
+        emptyColor="gray.600"
+        color="#D35547"
+        speed=".8s"
+        thickness="6px"/>
     </Flex>
     }
   </AppLayout>
