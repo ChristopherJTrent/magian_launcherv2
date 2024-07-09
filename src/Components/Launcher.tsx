@@ -2,7 +2,7 @@ import { Flex, Spinner, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@c
 import { RiProfileLine } from 'react-icons/ri'
 import { SiCplusplus, SiLua } from 'react-icons/si'
 import { FaGear } from 'react-icons/fa6'
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 import AddonListing from "@widgets/Tabs/Addons/AddonListing"
 import AppLayout from "./Layouts/App"
 import SettingsEditor from "@widgets/SettingsEditor"
@@ -10,7 +10,7 @@ import GamepadEditor from "@widgets/GamepadEditor"
 import ProfileListing from "@widgets/Tabs/Profiles/ProfileListing"
 import PluginListing from "@widgets/Tabs/Plugins/PluginListing"
 import { useAppDispatch } from "@store/store"
-import handleApplicationLoad from "../lib/util/Installation/Loader"
+import handleApplicationLoad from "lib/util/Installation/Loader"
 import PolPluginListing from "@widgets/Tabs/PolPlugins/PolPluginListing"
 
 export default function Launcher() {
