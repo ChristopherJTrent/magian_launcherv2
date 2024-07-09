@@ -1,7 +1,7 @@
 import { app, BrowserWindow, ipcMain} from 'electron';
 import path from 'path';
 import { updateElectronApp } from 'update-electron-app';
-import registerIPCCallbacks from './main/ipcHandlers';
+import registerIPCCallbacks from './ipcHandlers';
 import install, { REDUX_DEVTOOLS } from 'electron-devtools-installer'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.

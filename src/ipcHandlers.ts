@@ -1,14 +1,14 @@
 import { IpcMain, IpcMainInvokeEvent } from "electron"
 import { readdir } from "fs/promises"
 import { existsSync } from "fs"
-import updateAshita from "../lib/util/Installation/Ashita"
-import { loadProfiles, saveProfile } from "../lib/util/IO/ProfileLoader"
-import {getAddonList, getPluginList, getPolPluginList} from "../lib/util/Installation/Extensions"
+import updateAshita from "./lib/util/Installation/Ashita"
+import { loadProfiles, saveProfile } from "./lib/util/IO/ProfileLoader"
+import {getAddonList, getPluginList, getPolPluginList} from "./lib/util/Installation/Extensions"
 import Profile from "@data/Profile"
-import spawnAshita from "../lib/util/helpers/spawnAshita"
-import saveScript from "../lib/util/IO/ScriptLoader"
-import { PROFILE_LOCATION, ensureGit } from "../lib/util/Installation/paths"
-import { getAddonData } from "../lib/util/helpers/getExtensionData"
+import spawnAshita from "./lib/util/helpers/spawnAshita"
+import saveScript from "./lib/util/IO/ScriptLoader"
+import { PROFILE_LOCATION, ensureGit } from "./lib/util/Installation/paths"
+import { getAddonData } from "./lib/util/helpers/getExtensionData"
 import { initialProfiles } from "@data/DefaultProfile"
 
 type IPCHandler = {channel: string, listener: (event:IpcMainInvokeEvent, ...args: any[]) => Promise<unknown>}
@@ -72,6 +72,12 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
       channel: 'magian:ensureGit',
       listener: async (_) => { ensureGit() }
     },
+    {
+      channel: 'magian:deleteProfile',
+      listener: async(_, name:string) => {
+        
+      }
+    }
   ]
   handlers.forEach((v) => ipcMain.handle(v.channel, v.listener))
   ipcMain.on('magian:legacy:installAshita', (e) => {
