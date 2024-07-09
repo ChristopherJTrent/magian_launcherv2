@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain} from 'electron';
 import path from 'path';
 import { updateElectronApp } from 'update-electron-app';
 import registerIPCCallbacks from './main/ipcHandlers';
+import install, { REDUX_DEVTOOLS } from 'electron-devtools-installer'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -12,12 +13,13 @@ registerIPCCallbacks(ipcMain)
 
 updateElectronApp()
 
-const createWindow = () => {
 
+const createWindow = () => {
+  
   const RESOURCES_PATH = app.isPackaged
   ? path.join(process.resourcesPath, 'assets')
   : path.join(__dirname, '../../assets')
-
+  
 const getAssetPath = (...paths: string[]): string => {
   return path.join(RESOURCES_PATH, ...paths)
 }
@@ -37,6 +39,8 @@ const getAssetPath = (...paths: string[]): string => {
       symbolColor: '#FFF',
       height: 30,
     },
+    resizable: false,
+    maximizable: false
   });
 
   // and load the index.html of the app.
@@ -50,10 +54,27 @@ const getAssetPath = (...paths: string[]): string => {
   mainWindow.webContents.openDevTools();
 };
 
+
+
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', createWindow);
+
+if (!app.isPackaged) {
+  // This is broken and terrible, but it works.
+  // Most likely a breaking change with the update to typescript 5.5
+  // The below @ts-ignore lines are required, but I adcknowledge that they are a code smell.
+  app.whenReady().then(() => {
+    //@ts-ignore
+    install.default(REDUX_DEVTOOLS, {})
+    //@ts-ignore
+      .then((name) => console.log(`Added Extension:  ${name}`))
+      //@ts-ignore
+      .catch((err) => console.log('An error occurred: ', err));
+  }).catch((err) => {console.log(err)})
+}
+
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
