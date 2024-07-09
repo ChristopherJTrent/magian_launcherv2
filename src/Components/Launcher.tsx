@@ -3,15 +3,15 @@ import { RiProfileLine } from 'react-icons/ri'
 import { SiCplusplus, SiLua } from 'react-icons/si'
 import { FaGear } from 'react-icons/fa6'
 import { useEffect, useRef, useState } from "react"
-import AddonListing from "./Widgets/Tabs/Addons/AddonListing"
+import AddonListing from "@widgets/Tabs/Addons/AddonListing"
 import AppLayout from "./Layouts/App"
-import SettingsEditor from "./Widgets/SettingsEditor"
-import GamepadEditor from "./Widgets/GamepadEditor"
-import ProfileListing from "./Widgets/Tabs/Profiles/ProfileListing"
-import PluginListing from "./Widgets/Tabs/Plugins/PluginListing"
+import SettingsEditor from "@widgets/SettingsEditor"
+import GamepadEditor from "@widgets/GamepadEditor"
+import ProfileListing from "@widgets/Tabs/Profiles/ProfileListing"
+import PluginListing from "@widgets/Tabs/Plugins/PluginListing"
 import { useAppDispatch } from "@store/store"
 import handleApplicationLoad from "../lib/util/Installation/Loader"
-import PolPluginListing from "./Widgets/Tabs/PolPlugins/PolPluginListing"
+import PolPluginListing from "@widgets/Tabs/PolPlugins/PolPluginListing"
 
 export default function Launcher() {
   // const remainingHooks = useAppSelector(state => state.flags.remainingHooks)
