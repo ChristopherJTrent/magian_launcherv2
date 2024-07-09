@@ -40,3 +40,5 @@ export default class Profile {
     this.serverType = isPrivate? 'private' : 'retail'
   }
 }
+
+export type ExtensionField = keyof Profile & ('enabledAddons'|'enabledPlugins'|'enabledPolPlugins')
