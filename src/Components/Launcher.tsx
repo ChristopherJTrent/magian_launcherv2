@@ -11,7 +11,7 @@ import ProfileListing from "./Widgets/Tabs/Profiles/ProfileListing"
 import PluginListing from "./Widgets/Tabs/Plugins/PluginListing"
 import { useAppDispatch } from "../lib/store/store"
 import handleApplicationLoad from "../lib/util/Installation/Loader"
-import PolPluginListing from "./Widgets/PolPluginListing"
+import PolPluginListing from "./Widgets/Tabs/PolPlugins/PolPluginListing"
 
 export default function Launcher() {
   // const remainingHooks = useAppSelector(state => state.flags.remainingHooks)
