@@ -1,5 +1,5 @@
-import { configurationSelector } from "./lib/store/registrySelector"
-import { store } from "./lib/store/store"
+import { configurationSelector } from "@store/registrySelector"
+import { store } from "@store/store"
 
 function saveOnClose() {
 }
