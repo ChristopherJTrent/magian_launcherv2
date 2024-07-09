@@ -7,8 +7,7 @@ export default function AddonSaveButton() {
   const profile = useAppSelector(currentProfile)
   return <Button marginTop='3px'
   width='100%' onClick={() => {
-    //window.electron.ipcRenderer.saveScript(profile)
-    //window.electron.ipcRenderer.saveProfile(profile)
+    window.electron.ipcRenderer.saveProfile(profile)
   }}>
 <Flex>
   <h1>Save</h1>
