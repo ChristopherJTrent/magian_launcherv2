@@ -1,4 +1,4 @@
-import Addon from "../../data/Addon"
+import Addon from "@data/Addon"
 import { receiveProfiles } from "../../store/ProfileReducer"
 import { receiveAddon, receiveAddons } from "../../store/addonsReducer"
 import { LoaderHook, receiveHook } from "../../store/loaderReducer"

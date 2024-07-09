@@ -1,7 +1,7 @@
 // Disable no-unused-vars, broken for spread args
 /* eslint no-unused-vars: off */
 import { contextBridge, ipcRenderer} from 'electron'
-import Profile from '../lib/data/Profile'
+import Profile from '@data/Profile'
 import { AddonData } from '../lib/util/helpers/getExtensionData'
 
 export type Channels = 'ipc-example';

@@ -4,12 +4,12 @@ import { existsSync } from "fs"
 import updateAshita from "../lib/util/Installation/Ashita"
 import { loadProfiles, saveProfile } from "../lib/util/IO/ProfileLoader"
 import {getAddonList, getPluginList, getPolPluginList} from "../lib/util/Installation/Extensions"
-import Profile from "../lib/data/Profile"
+import Profile from "@data/Profile"
 import spawnAshita from "../lib/util/helpers/spawnAshita"
 import saveScript from "../lib/util/IO/ScriptLoader"
 import { PROFILE_LOCATION, ensureGit } from "../lib/util/Installation/paths"
 import { getAddonData } from "../lib/util/helpers/getExtensionData"
-import { initialProfiles } from "../lib/data/DefaultProfile"
+import { initialProfiles } from "@data/DefaultProfile"
 
 type IPCHandler = {channel: string, listener: (event:IpcMainInvokeEvent, ...args: any[]) => Promise<unknown>}
 

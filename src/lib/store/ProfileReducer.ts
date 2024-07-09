@@ -1,16 +1,67 @@
-import { PayloadAction, createSelector, createSlice, current } from "@reduxjs/toolkit"
-import Profile from "../data/Profile"
+import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit"
+import Profile, { ExtensionField } from "@data/Profile"
 import { type RootState } from "./store"
-import { initialProfiles, profilesMapping } from "../data/DefaultProfile"
-import AshitaSettings from "../data/AshitaSettings"
+import { initialProfiles, profilesMapping } from "@data/DefaultProfile"
+import AshitaSettings from "@data/AshitaSettings"
 
-export const addonEnabled = (name:string) => (state:RootState) => {
-    return (state.profiles.list[state.profiles.currentProfile].enabledAddons ?? []).includes(name)
-  }
+export const extensionEnabled = (name: string, type: ExtensionField) => (state: RootState) => (
+  (state.profiles.list[state.profiles.currentProfile][type] ?? []).includes(name)
+)
+
+export const addonEnabled = (name:string) => (state:RootState) => (
+  (state.profiles.list[state.profiles.currentProfile].enabledAddons ?? []).includes(name)
+)
 
 export const pluginEnabled = (name:string) => (state:RootState) => (
   (state.profiles.list[state.profiles.currentProfile].enabledAddons ?? []).includes(name)
 )
+
+
+const disableExtension = (
+    type: ExtensionField
+  ) => (
+      state:profilesMapping, 
+      action: PayloadAction<string>
+  ) => {
+  return {
+    // Don't alter the currentProfile (or any other field I add later)
+    ...state,
+    list: {
+      // Don't alter other members of the list
+      ...state.list,
+      // Specifically work on the currentProfile
+      [state.currentProfile]: {
+        // Don't alter other parts of the object
+        ...state.list[state.currentProfile],
+        // Specifically filter the appropriate field of the profile
+        [type]: state.list[state.currentProfile][type].filter(
+          (v) => v !== action.payload
+        )
+      }
+    }
+  }
+}
+
+const enableExtension = (
+  type: ExtensionField
+) => (
+  state: profilesMapping,
+  action: PayloadAction<string>
+) => ({
+  ...state,
+  list: {
+    ...state.list,
+    [state.currentProfile]: {
+      ...state.list[state.currentProfile],
+      [type]: state.list[state.currentProfile][type].includes(action.payload) ?
+        state.list[state.currentProfile][type] :
+        [
+          ...state.list[state.currentProfile][type],
+          action.payload
+        ]
+    }
+  }
+})
 
 export const currentProfile = createSelector((state:RootState) => state.profiles,
   profiles => profiles.list[profiles.currentProfile]
@@ -40,61 +91,18 @@ export const profileSlice = createSlice({
         state.currentProfile = action.payload
       }
     },
-    setAddonEnabled: (state:profilesMapping, action:PayloadAction<string>) => {
-      if(!state.list[state.currentProfile].enabledAddons.includes(action.payload)) {
-        state.list[state.currentProfile].enabledAddons = [
-          ...state.list[state.currentProfile].enabledAddons,
-          action.payload
-        ]
-      }
-    },
-    // Working
-    setAddonDisabled: (state:profilesMapping, action:PayloadAction<string>) => {
-      return {
-        ...state,
-        list: {
-          ...state.list,
-          [state.currentProfile]: {
-            ...state.list[state.currentProfile],
-            enabledAddons: state.list[state.currentProfile].enabledAddons.filter((v) => v !== action.payload)
-          }
-        }
-      }
-    },
-    setPluginEnabled: (state:profilesMapping, action:PayloadAction<string>) => {
-      if(!state.list[state.currentProfile].enabledPlugins?.includes(action.payload)) {
-        state.list[state.currentProfile].enabledPlugins = [
-          ...state.list[state.currentProfile].enabledPlugins,
-          action.payload
-        ]
-      }
-    },
-    // Broken
-    setPluginDisabled: (state:profilesMapping, action:PayloadAction<string>) => {
-      state.list[state.currentProfile].enabledPlugins =
-        state.list[state.currentProfile].enabledPlugins.filter(plugin => plugin !== action.payload)
-    },
+    setAddonEnabled:   enableExtension('enabledAddons'),
+    enablePolPlugin:   enableExtension('enabledPolPlugins'),
+    setPluginEnabled:  enableExtension('enabledPlugins'),
+    setAddonDisabled:  disableExtension('enabledAddons'),
+    setPluginDisabled: disableExtension('enabledPlugins'),
+    disablePolPlugin:  disableExtension('enabledPolPlugins'),
     setSettingsValue: (state:profilesMapping, action:PayloadAction<{field:string, value: any}>) => {
       // @ts-ignore
       state.list[state.currentProfile]
         .settings[action.payload.field as keyof AshitaSettings]
         = action.payload.value
     },
-    enablePolPlugin: (state: profilesMapping, action: PayloadAction<string>) => {
-      state.list[state.currentProfile].enabledPolPlugins ??= []
-      if (!state.list[state.currentProfile].enabledPolPlugins?.includes(action.payload)) {
-        state.list[state.currentProfile].enabledPolPlugins = [
-          ...state.list[state.currentProfile].enabledPolPlugins,
-          action.payload
-        ]
-      }
-    },
-    disablePolPlugin: (state:profilesMapping, action: PayloadAction<string>) => {
-      if (state.list[state.currentProfile].enabledPolPlugins?.includes(action.payload)) {
-        state.list[state.currentProfile].enabledPolPlugins =
-          state.list[state.currentProfile].enabledPolPlugins?.filter(plugin => plugin !== action.payload)
-      }
-    }
   }
 })
 

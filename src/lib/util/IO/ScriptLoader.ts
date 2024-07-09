@@ -1,8 +1,8 @@
 import { existsSync } from "fs"
 import { mkdir, writeFile } from "fs/promises"
 import { MANAGED_SCRIPT_LOCATION } from "../Installation/paths"
-import { generateManagedScript } from "../../data/Scripts"
-import Profile from "../../data/Profile"
+import { generateManagedScript } from "@data/Scripts"
+import Profile from "@data/Profile"
 
 export default async function saveScript(profile:Profile) {
   if(! existsSync(MANAGED_SCRIPT_LOCATION)) {

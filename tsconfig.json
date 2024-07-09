@@ -17,6 +17,7 @@
       "@components/*": ["Components/*"],
       "@widgets/*": ["Components/Widgets/*"],
       "@store/*": ["lib/store/*"],
+      "@data/*": ["lib/data/*"],
     }
   }
 }

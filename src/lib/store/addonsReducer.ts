@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import Addon from "../data/Addon"
+import Addon from "@data/Addon"
 
 export type addonsMapping = Addon[]
 

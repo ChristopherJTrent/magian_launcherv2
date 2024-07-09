@@ -1,6 +1,6 @@
 import {stringify, parse} from 'ini'
-import { settingsBoolToNumber } from '../../data/AshitaSettings'
-import Profile from '../../data/Profile'
+import { settingsBoolToNumber } from '@data/AshitaSettings'
+import Profile from '@data/Profile'
 
 export function dumpINI(object:Object):string {
   return stringify(object, {

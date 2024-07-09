@@ -2,6 +2,7 @@ import { builtinModules } from 'node:module';
 import type { AddressInfo } from 'node:net';
 import type { ConfigEnv, Plugin, UserConfig } from 'vite';
 import pkg from './package.json';
+import tsconfigpaths from 'vite-tsconfig-paths'
 
 export const builtins = ['electron', ...builtinModules.map((m) => [m, `node:${m}`]).flat()];
 
@@ -22,6 +23,7 @@ export function getBuildConfig(env: ConfigEnv<'build'>): UserConfig {
       minify: command === 'build',
     },
     clearScreen: false,
+    plugins: [tsconfigpaths()]
   };
 }
 
