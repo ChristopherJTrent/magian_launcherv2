@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux"
 import { Divider, Flex, ListItem, Switch, Text } from "@chakra-ui/react"
-import { addonEnabled, setAddonDisabled, setAddonEnabled } from "../../../../lib/store/ProfileReducer"
+import { addonEnabled, extensionEnabled, setAddonDisabled, setAddonEnabled } from "../../../../lib/store/ProfileReducer"
 import { useAppDispatch } from "../../../../lib/store/store"
 import { changeProfile } from "../../../../lib/store/flagsReducer"
 import Addon from "../../../../lib/data/Addon"
@@ -26,7 +26,7 @@ export default function AddonElement({addon}:AddonElementProps) {
   //    <Text fontSize='lg' overflowWrap='break-word'>{addon.Description}</Text>
   //  </AccordionPanel>
   // </AccordionItem>
-  const enabled = useSelector(addonEnabled(addon.name))
+  const enabled = useSelector(extensionEnabled(addon.name, 'enabledAddons'))
   const dispatch = useAppDispatch()
 
   const toggleAddon = () => {
