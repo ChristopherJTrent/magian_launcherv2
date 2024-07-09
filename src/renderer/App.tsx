@@ -2,7 +2,7 @@ import './App.css'
 import { ChakraProvider} from '@chakra-ui/react'
 import { Provider } from 'react-redux'
 import theme from '../lib/theme'
-import Launcher from '../Components/Launcher'
+import Launcher from '@components/Launcher'
 import { store } from '@store/store'
 import registerHooks from '../hooks'
 
