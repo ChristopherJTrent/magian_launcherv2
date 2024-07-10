@@ -1,5 +1,5 @@
 import { IpcMain, IpcMainInvokeEvent } from "electron"
-import { readdir } from "fs/promises"
+import { readdir, rm } from "fs/promises"
 import { existsSync } from "fs"
 import updateAshita from "./lib/util/Installation/Ashita"
 import { loadProfiles, saveProfile } from "./lib/util/IO/ProfileLoader"
@@ -10,6 +10,7 @@ import saveScript from "./lib/util/IO/ScriptLoader"
 import { PROFILE_LOCATION, ensureGit } from "./lib/util/Installation/paths"
 import { getAddonData } from "./lib/util/helpers/getExtensionData"
 import { initialProfiles } from "@data/DefaultProfile"
+import { join } from "path"
 
 type IPCHandler = {channel: string, listener: (event:IpcMainInvokeEvent, ...args: any[]) => Promise<unknown>}
 
@@ -75,7 +76,13 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
     {
       channel: 'magian:deleteProfile',
       listener: async(_, name:string) => {
-        
+        await rm(
+          join(PROFILE_LOCATION, name),
+          {
+            force: true,
+            recursive: true
+          }
+        )
       }
     }
   ]
@@ -105,7 +112,8 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
       readdir(PROFILE_LOCATION, {withFileTypes: true}).then(entries => {
         if(entries
           .filter(entry => entry.isDirectory())
-          .filter(entry => existsSync(`${PROFILE_LOCATION}\\${entry.name}\\profile.json`))
+          
+          .filter(entry => existsSync(join(PROFILE_LOCATION, entry.name, 'profile.json')))
           .length === 0) {
             doProfiles()
           } else {
