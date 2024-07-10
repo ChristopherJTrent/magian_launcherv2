@@ -1,6 +1,7 @@
 import { readFileSync } from "fs"
 import { ADDON_LOCATION } from "../Installation/paths"
 import Addon from "@data/Addon"
+import { join } from "path"
 
 export type AddonData = {
   author: string
@@ -19,7 +20,7 @@ function matchOrDefault(input:string, regex:RegExp, def:string = ''):string {
 }
 
 export function getAddonData(name: string): AddonData {
-  const file = readFileSync(`${ADDON_LOCATION}\\${name}\\${name}.lua`).toString()
+  const file = readFileSync(join(ADDON_LOCATION, name, `${name}.lua`)).toString()
   const output:AddonData = {
     author: matchOrDefault(file, authorRegex),
     version: matchOrDefault(file, versionRegex),

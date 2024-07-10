@@ -31,7 +31,7 @@ export async function saveProfile(input:Profile):Promise<void> {
       {flag: 'w+'}
     )
     await writeFile(
-      join(MANAGED_SCRIPT_LOCATION, `${input.name}.txt`)\,
+      join(MANAGED_SCRIPT_LOCATION, `${input.name}.txt`),
       generateManagedScript(input.name, input.enabledAddons, input.enabledPlugins),
       {flag: 'w+'}
     )
