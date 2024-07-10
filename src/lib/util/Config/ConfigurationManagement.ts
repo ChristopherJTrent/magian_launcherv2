@@ -1,8 +1,9 @@
 import { readFileSync, writeFileSync } from "fs"
 import { INSTALL_LOCATION } from "../Installation/paths"
+import { join } from "path"
 
 function formatFileName(filename:string) {
-  return `${INSTALL_LOCATION}\\profiles\\${filename}${filename.endsWith('.json') ? '' : '.json'}`
+  return join(INSTALL_LOCATION, 'profiles', filename + filename.endsWith('.json')? '' : '.json')
 }
 
 export function loadProfile(filename:string) {

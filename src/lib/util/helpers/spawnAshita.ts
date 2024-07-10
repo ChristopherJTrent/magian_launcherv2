@@ -1,5 +1,6 @@
 import { spawnSync } from 'child_process'
 import { ASHITA_LOCATION } from '../Installation/paths'
+import { join } from 'path'
 
 export default async function spawnAshita(scriptName:string) {
   try{
@@ -8,7 +9,7 @@ export default async function spawnAshita(scriptName:string) {
       'Start-Process',
       [
         '-FilePath',
-        `"${ASHITA_LOCATION}\\ashita-cli.exe"`,
+        `"${join(ASHITA_LOCATION, 'ashita-cli.exe')}"`,
         '-WorkingDirectory',
         `"${ASHITA_LOCATION}"`,
         '-Args',

@@ -1,11 +1,12 @@
 import { readdir } from "fs/promises"
 import { existsSync } from "fs"
 import { ADDON_LOCATION, PLUGIN_LOCATION, POL_PLUGIN_LOCATION } from "./paths"
+import { join } from "path"
 
 export async function getAddonList():Promise<string[]> {
   return (await readdir(ADDON_LOCATION, {withFileTypes: true}))
     .filter(entry => entry.isDirectory())
-    .filter(entry => existsSync(`${ADDON_LOCATION}\\${entry.name}\\${entry.name}.lua`))
+    .filter(entry => existsSync(join(ADDON_LOCATION, entry.name, `${entry.name}.lua`)))
     .map(entry => entry.name)
 }
 export async function getPluginList():Promise<string[]> {

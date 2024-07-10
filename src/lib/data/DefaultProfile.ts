@@ -1,3 +1,4 @@
+import { join } from "path"
 import Profile from "./Profile"
 
 export type profilesMapping = {
@@ -6,7 +7,7 @@ export type profilesMapping = {
 }
 
 const omicron = new Profile('Omicron XI', [], [], [], true)
-omicron.settings.bootFile = '.\\bootloader\\xiloader.exe'
+omicron.settings.bootFile = join('.', 'bootloader', 'xiloader.exe')
 omicron.settings.bootCommand = '--server OmicronFFXI.com'
 
 export const initialProfiles:profilesMapping = {
