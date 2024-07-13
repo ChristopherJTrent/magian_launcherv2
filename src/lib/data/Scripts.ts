@@ -15,6 +15,24 @@ ${addons?.map((v) => `/addon load ${v}`)?.join('\n') ?? '\n'}
 /exec ${name}/addonInit`
 }
 
-export function generateHookScript() {
+function generateTimingText(step: string) {
+  switch(step) {
+    case "beforePluginLoad":
+      return "before plugins are loaded"
+    case "beforeAddonLoad":
+      return "before addons are loaded"
+    case "keybinds":
+      return "after addons are loaded"
+    default:
+      return "at the end of the script"
+  }
+}
 
+export function generateHookScript(name:string) {
+  return `┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓
+┃ This script is not managed by Magian Launcher. ┃
+┃ You are free to edit it as you wish.           ┃
+┃                                                ┃
+┃ This script will run ${generateTimingText(name).padEnd(26)}┃
+┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛`
 }

@@ -2,7 +2,7 @@ import { IpcMain, IpcMainInvokeEvent } from "electron"
 import { readdir, rm } from "fs/promises"
 import { existsSync } from "fs"
 import updateAshita from "./lib/util/Installation/Ashita"
-import { loadProfiles, saveProfile } from "./lib/util/IO/ProfileLoader"
+import { initializeProfile, loadProfiles, saveProfile } from "./lib/util/IO/ProfileLoader"
 import {getAddonList, getPluginList, getPolPluginList} from "./lib/util/Installation/Extensions"
 import Profile from "@data/Profile"
 import spawnAshita from "./lib/util/helpers/spawnAshita"
@@ -97,8 +97,10 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
   } catch(err) {}})
   ipcMain.on('magian:ensureProfiles', (e) => {
     const doProfiles = () => {
-      return saveProfile(initialProfiles.list.default).then(() => {
-        return saveProfile(initialProfiles.list.omicron).then(() => {
+      initializeProfile(initialProfiles.list.default.name)
+      initializeProfile(initialProfiles.list.omicron.name)
+      saveProfile(initialProfiles.list.default).then(() => {
+        saveProfile(initialProfiles.list.omicron).then(() => {
           e.reply('magian:ensureProfiles:reply')
         }).catch()
       }).catch()
@@ -112,11 +114,12 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
       readdir(PROFILE_LOCATION, {withFileTypes: true}).then(entries => {
         if(entries
           .filter(entry => entry.isDirectory())
-          
           .filter(entry => existsSync(join(PROFILE_LOCATION, entry.name, 'profile.json')))
           .length === 0) {
+            console.log("saving profiles...")
             doProfiles()
           } else {
+            console.log("Profiles already exist")
             e.reply('magian:ensureProfiles:reply')
           }
         }).catch((e) => {
