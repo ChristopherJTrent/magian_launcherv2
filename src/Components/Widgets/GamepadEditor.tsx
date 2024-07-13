@@ -167,12 +167,7 @@ export default function GamepadEditor() {
               onChange={() => dispatch(setToggle({
                 name: v.key,
                 value: !(flags[v.key as keyof typeof flags])
-              }))} marginRight='8px'
-              sx={{
-                '.chakra-switch__track[data-checked]': {
-                  backgroundColor: '#D35547'
-                }
-              }}/>
+              }))} marginRight='8px'/>
               {v.label}
           </label>
         ))
