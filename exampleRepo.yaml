@@ -1,0 +1,41 @@
+# This file will not function as-is, as luashitacast profiles are not yet implemented
+# and the files it "extends" don't exist
+# However, the structure is correct.
+
+extends: 
+  # $HERE means attempt to locate the selected file at the same base url.
+  - "$HERE/jeuno.yaml"
+  # supports the following providers: 
+    # gh - Github
+      # expects format gh:<username>/<repo name>[@<branch>][/<repo file with ext.>]
+      # defaults:
+        # @branch: main
+        # repo file: repo.yaml
+    # gl - Gitlab
+      # uses the same format as github, just with gl instead of gh
+  - "gh:ThornyFFXI/MiscAshita4"
+
+customReplacers:
+  # Custom Replacers are relative to the root of the ashita installation
+  # note: all paths are sanitized before being passed to any filesystem methods.
+  #   if you manage to get any funny business working: 
+  #     1) I'll be very impressed.
+  #     2) please open an issue on github.
+  - matchPattern: "$LUASHITACAST"
+    replacement: "config/addons/luashitacast"
+
+downloads:
+    # This value must be a link to where you can download a copy of the file
+  - downloadLink: "https://github.com/ChristopherJTrent/Smart.LAC/archive/refs/heads/master.zip"
+    # this value is a path relative to the root of the downloaded zip file.
+    filesystemRoot: "Smart.LAC-master/"
+    # this value is the location (relative to the ashita installation root)
+    # where the extension should be installed.
+    # NOTE: replacements are *only* valid as the first path segment.
+    installationRoot: "$LUASHITACAST/Smart.LAC/"
+
+    # If your extension can be downloaded from its link and unzipped
+    # directly into the root of the ashita installation, you can omit
+    # both filesystemRoot and installationRoot.
+    # Thorny's LuAshitacast is a perfect example of this type of extension.
+  - downloadLink: "https://github.com/ThornyFFXI/LuAshitacast/releases/download/2.0/LuAshitacast.2.03.zip"
