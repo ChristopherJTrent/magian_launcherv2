@@ -51,7 +51,9 @@ const getAssetPath = (...paths: string[]): string => {
   }
 
   // Open the DevTools.
-  mainWindow.webContents.openDevTools();
+  if(!app.isPackaged) {
+    mainWindow.webContents.openDevTools();
+  }
 };
 
 
