@@ -1,10 +1,7 @@
-# This file will not function as-is, as luashitacast profiles are not yet implemented
-# and the files it "extends" don't exist
+# This file will not function as-is, as the files it "extends" don't exist
 # However, the structure is correct.
 
 extends: 
-  # $HERE means attempt to locate the selected file at the same base url.
-  - "$HERE/jeuno.yaml"
   # supports the following providers: 
     # gh - Github
       # expects format gh:<username>/<repo name>[@<branch>][/<repo file with ext.>]

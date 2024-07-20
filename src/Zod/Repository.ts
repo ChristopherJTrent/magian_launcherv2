@@ -9,10 +9,7 @@ const Repository = z.object({
         matchPattern: z.string(),
         replacement: z.string()
     }))),
-    extends: z.optional(z.array(z.string().refine(arg => (
-        /^\$HERE\/.+\.yaml/.test(arg) ||
-        repoRegex.test(arg)
-    )))),
+    extends: z.optional(z.array(z.string().regex(repoRegex))),
     downloads: z.array(z.object({
         downloadLink: z.string().url(),
         filesystemRoot: z.optional(
