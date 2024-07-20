@@ -1,5 +1,5 @@
 import { IconButton } from "@chakra-ui/react"
-import { CiPlay1 } from 'react-icons/ci'
+import { TbPlayerPlay } from 'react-icons/tb'
 import { useAppDispatch, useAppSelector } from "@store/store"
 import { resetChangeProfile } from "@store/flagsReducer"
 import { receiveHook } from "@store/loaderReducer"
@@ -26,7 +26,7 @@ export default function LaunchGameButton({profileName}:LaunchGameButtonProps) {
   }
   return <IconButton
     aria-label={`Launch ${profileName}`}
-    icon={<CiPlay1 />}
+    icon={<TbPlayerPlay />}
     onClick={launchGame}
     backgroundColor="#D35547"/>
 }
