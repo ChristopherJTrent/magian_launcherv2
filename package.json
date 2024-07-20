@@ -1,8 +1,8 @@
 {
   "name": "magian-launcher",
   "productName": "magian-launcher",
-  "version": "1.0.0",
-  "description": "My Electron application description",
+  "version": "1.0.0-alpha.2",
+  "description": "Launcher for a 22-year old MMORPG, Final Fantasy XI Online",
   "main": ".vite/build/main.js",
   "repository": "github:ChristopherJTrent/magian_launcherv2",
   "scripts": {
@@ -21,6 +21,7 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
     "@electron-forge/plugin-fuses": "^7.4.0",
     "@electron-forge/plugin-vite": "^7.4.0",
+    "@electron-forge/publisher-github": "^7.4.0",
     "@electron/fuses": "^1.8.0",
     "@types/ini": "^4.1.1",
     "@types/js-yaml": "^4.0.9",
