@@ -6,13 +6,20 @@ import { MakerRpm } from '@electron-forge/maker-rpm';
 import { VitePlugin } from '@electron-forge/plugin-vite';
 import { FusesPlugin } from '@electron-forge/plugin-fuses';
 import { FuseV1Options, FuseVersion } from '@electron/fuses';
+import { join } from 'path';
 
 const config: ForgeConfig = {
   packagerConfig: {
     asar: true,
+    icon: join(process.cwd(), "assets", "icon.ico"),
+    extraResource: [
+      join(process.cwd(), 'assets', 'icon.ico')
+    ]
   },
   rebuildConfig: {},
-  makers: [new MakerSquirrel({}), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
+  makers: [new MakerSquirrel({
+    iconUrl: "https://raw.githubusercontent.com/ChristopherJTrent/magian_launcherv2/master/assets/icon.ico"
+  }), new MakerZIP({}, ['darwin']), new MakerRpm({}), new MakerDeb({})],
   plugins: [
     new VitePlugin({
       // `build` can specify multiple entry builds, which can be Main process, Preload scripts, Worker process, etc.
