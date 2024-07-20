@@ -82,9 +82,7 @@ export const profileSlice = createSlice({
       state.list[action.payload.name] = action.payload
     },
     removeProfile: (state:profilesMapping, action: PayloadAction<string>) => {
-      const newState = {...state.list}
-      delete newState[action.payload]
-      state.list = newState
+      delete state.list[action.payload]
     },
     setActiveProfile: (state: profilesMapping, action: PayloadAction<string>) => {
       if (Object.keys(state.list).includes(action.payload)) {
@@ -116,7 +114,8 @@ export const {
   setSettingsValue,
   setActiveProfile,
   enablePolPlugin,
-  disablePolPlugin
+  disablePolPlugin,
+  removeProfile
 } = profileSlice.actions
 
 export default profileSlice.reducer

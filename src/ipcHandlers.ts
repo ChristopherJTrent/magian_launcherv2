@@ -11,6 +11,7 @@ import { PROFILE_LOCATION, ensureGit } from "./lib/util/Installation/paths"
 import { getAddonData } from "./lib/util/helpers/getExtensionData"
 import { initialProfiles } from "@data/DefaultProfile"
 import { join } from "path"
+import { deleteProfile } from "@lib/util/Installation/Profile"
 
 type IPCHandler = {channel: string, listener: (event:IpcMainInvokeEvent, ...args: any[]) => Promise<unknown>}
 
@@ -76,13 +77,8 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
     {
       channel: 'magian:deleteProfile',
       listener: async(_, name:string) => {
-        await rm(
-          join(PROFILE_LOCATION, name),
-          {
-            force: true,
-            recursive: true
-          }
-        )
+        console.log('received delete profile for '+name)
+        await deleteProfile(name)
       }
     }
   ]

@@ -3,6 +3,7 @@ import LaunchGameButton from "./LaunchGameButton"
 import { useAppSelector } from "@store/store"
 import TextHighlight from "../../TextHighlight"
 import SetActiveProfileButton from "./SetActiveProfileButton"
+import DeleteProfileButton from "./DeleteProfileButton"
 
 type ProfileElementProps = {
   profileName:string
@@ -49,6 +50,7 @@ export default function ProfileElement({profileName}:ProfileElementProps) {
       </Flex>
     </Flex>
     <Flex direction='row'>
+      <DeleteProfileButton name={profile.name}/>
       <SetActiveProfileButton profileName={profile.name}/>
       <LaunchGameButton profileName={profile.name} />
     </Flex>
