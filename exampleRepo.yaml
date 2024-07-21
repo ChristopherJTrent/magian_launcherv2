@@ -30,9 +30,4 @@ downloads:
     # where the extension should be installed.
     # NOTE: replacements are *only* valid as the first path segment.
     installationRoot: "$LUASHITACAST/Smart.LAC/"
-
-    # If your extension can be downloaded from its link and unzipped
-    # directly into the root of the ashita installation, you can omit
-    # both filesystemRoot and installationRoot.
-    # Thorny's LuAshitacast is a perfect example of this type of extension.
-  - downloadLink: "https://github.com/ThornyFFXI/LuAshitacast/releases/download/2.0/LuAshitacast.2.03.zip"
+    fileNameOverride: 'Smart'
