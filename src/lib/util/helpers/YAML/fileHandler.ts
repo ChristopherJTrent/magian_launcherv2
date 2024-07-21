@@ -20,7 +20,7 @@ export async function loadYamlFile(path: PathLike): Promise<Repository> {
 function convertLocation(input: string): string {
     const {service, user, repo, branch, file} = repoRegex.exec(input)?.groups ?? {}
 
-    return service === 'gh' 
+    return service === 'gh:' 
         ? `https://raw.githubusercontent.com/${user}/${repo}/${branch ?? 'main'}/${file ?? 'repo.yaml'}`
         : `https://gitlab.com/${user}/${repo}/-/raw/${branch ?? 'main'}/${file ?? 'repo.yaml'}?ref_type=heads`
 }
