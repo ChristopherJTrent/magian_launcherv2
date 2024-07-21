@@ -12,8 +12,8 @@ const Repository = z.object({
     extends: z.optional(z.array(z.string().regex(repoRegex))),
     downloads: z.array(z.object({
         downloadLink: z.string().url(),
-        filesystemRoot: z.optional(z.string()),
-        installationRoot: z.optional(z.string()),
+        filesystemRoot: z.string(),
+        installationRoot: z.string(),
         descriptionFile: z.optional(z.string())
     }))
 })
