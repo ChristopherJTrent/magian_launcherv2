@@ -27,7 +27,11 @@ export const defaultTransformers: pathTransformer[] = [
 ]
 
 function transformPath(input: string, customReplacers: pathTransformer[] = []): string {
-
+    return customReplacers.reduce((a, v) => (
+        a.startsWith(v.matchPattern) ? a.replace(v.matchPattern, join(ASHITA_LOCATION, v.replacement)) : a
+    ), defaultTransformers.reduce((a, v) => (
+        a.startsWith(v.matchPattern) ? a.replace(v.matchPattern, v.replacement) : a
+    ), input))
 }
 
 
