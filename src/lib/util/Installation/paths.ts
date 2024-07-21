@@ -12,6 +12,7 @@ export const MANAGED_SCRIPT_LOCATION = join(SCRIPT_LOCATION, 'managed')
 export const ADDON_LOCATION = join(ASHITA_LOCATION, 'addons')
 export const PLUGIN_LOCATION = join(ASHITA_LOCATION, 'plugins')
 export const POL_PLUGIN_LOCATION = join(ASHITA_LOCATION, 'polplugins')
+export const DOWNLOADS_LOCATION = join(INSTALL_LOCATION, 'Downloads')
 
 export function hasGit():boolean {
   try{
