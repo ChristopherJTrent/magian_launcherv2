@@ -1,5 +1,5 @@
 import { createWriteStream, PathLike, unlink } from 'fs'
-import {get} from 'http'
+import {get} from 'https'
 import { Url } from 'url'
 
 export default async function DownloadFile(fileUrl: Url | string, savePath: PathLike) {
@@ -11,7 +11,7 @@ export default async function DownloadFile(fileUrl: Url | string, savePath: Path
         })
     }).on('error', (err) => {
         unlink(savePath, () => {
-            console.error(`Error downloading file "${savePath.toString()}"`)
+            console.error(`Error downloading file "${savePath.toString()}": ${err}`)
         })
     })
 }
