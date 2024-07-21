@@ -1,5 +1,3 @@
-import { createWriteStream, PathLike, unlink } from 'fs'
-import {get} from 'https'
 import { DownloaderHelper } from 'node-downloader-helper'
 import { Url } from 'url'
 import { DOWNLOADS_LOCATION } from '../Installation/paths'
