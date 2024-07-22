@@ -1,7 +1,7 @@
 import Addon from "@data/Addon"
 import { receiveProfiles } from "../../store/ProfileReducer"
 import { receiveAddon, receiveAddons } from "../../store/addonsReducer"
-import { LoaderHook, receiveHook } from "../../store/loaderReducer"
+import { LoaderHook } from "../../store/loaderReducer"
 import { receiveplugins } from "../../store/pluginsReducer"
 import { receivePolPlugins } from "../../store/polPluginsReducer"
 import { AppDispatch } from "../../store/store"

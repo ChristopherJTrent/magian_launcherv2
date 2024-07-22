@@ -10,7 +10,7 @@ type LaunchGameButtonProps = {
 
 export default function LaunchGameButton({profileName}:LaunchGameButtonProps) {
   const hasScriptUpdate = useAppSelector(state => state.flags.profileChanged)
-  const profile = useAppSelector(state => state.profiles.list[profileName])
+  // const profile = useAppSelector(state => state.profiles.list[profileName])
   const dispatch = useAppDispatch()
   const launchGame = () => {
     if (hasScriptUpdate) {

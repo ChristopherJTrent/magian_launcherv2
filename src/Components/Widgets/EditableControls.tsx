@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { ButtonGroup, IconButton, useEditableControls } from "@chakra-ui/react"
 import { CheckIcon, CloseIcon, EditIcon } from '@chakra-ui/icons'
 

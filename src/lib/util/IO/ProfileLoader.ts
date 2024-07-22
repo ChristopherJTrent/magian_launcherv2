@@ -34,7 +34,7 @@ export async function saveProfile(input:Profile):Promise<void> {
       generateManagedScript(input.name, input.enabledAddons, input.enabledPlugins),
       {flag: 'w+'}
     )
-  } catch(e) { /* empty */ }
+  } catch(_e) { /* empty */ }
 }
 
 export async function initializeProfile(name: string):Promise<void> {

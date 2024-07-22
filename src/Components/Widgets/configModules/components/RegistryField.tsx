@@ -24,7 +24,6 @@ export default function RegistryField({
   }:RegistryFieldProps) {
   const profile = useAppSelector(currentProfile)
   const dispatch = useAppDispatch()
-  // @ts-ignore
   return <Flex
       direction='row'
       align='center'

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+
 import { ADDON_LOCATION, ASHITA_LOCATION, PLUGIN_LOCATION, POL_PLUGIN_LOCATION } from "@lib/util/Installation/paths"
 import { join } from "path"
 import { pathTransformer } from "../../../data/pathTransformer"
@@ -34,10 +36,3 @@ function transformPath(input: string, customReplacers: pathTransformer[] = []): 
     ), input))
 }
 
-
-export default function transformYamlPaths(input: Repository): Repository {
-    input.downloads = input.downloads.map((v) => ({
-        downloadLink: v.downloadLink,
-        
-    }))
-}

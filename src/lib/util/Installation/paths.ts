@@ -22,7 +22,7 @@ export function hasGit():boolean {
       '(Get-Command git).path'
     ])
     return bat.status === 0
-  } catch(e) {
+  } catch(_e) {
     return false
   }
 

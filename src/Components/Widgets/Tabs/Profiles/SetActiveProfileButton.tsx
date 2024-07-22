@@ -17,7 +17,7 @@ export default function SetActiveProfileButton({profileName}:SetActiveProfileBut
     icon={<EditIcon />}
     onClick={() => {
       if (profileChanged) {
-        //window.electron.ipcRenderer.saveProfile(profile)
+        window.electron.ipcRenderer.saveProfile(profile)
       }
       dispatch(setActiveProfile(profileName))
     }}

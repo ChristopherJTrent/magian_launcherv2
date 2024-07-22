@@ -2,7 +2,7 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
 export type LoaderHook = {
   name: string
-  func: ()=>Promise<any>
+  func: ()=>Promise<unknown>
 }
 export type LoaderState = {
   currentHook: string

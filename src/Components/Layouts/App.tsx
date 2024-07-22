@@ -1,9 +1,7 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
 import React, { PropsWithChildren } from 'react'
 
-export type AppLayoutProps = {}
-
-export default function AppLayout({children}:PropsWithChildren<AppLayoutProps>) {
+export default function AppLayout({children}:PropsWithChildren<object>) {
   return (
     <Box width='100vw' height='100vh' backgroundColor='#282C37' position='fixed' top='0px' left='0px'>
       <Box width='100vw' height='30px' className='titlebar' margin='0px'>

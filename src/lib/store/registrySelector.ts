@@ -24,6 +24,7 @@ export default function getGamepadRegistrySegment(state: GamepadState) {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const configurationSelector = (retailObj:any) => (state:RootState) => ({
   ...retailObj,
     ffxi:{

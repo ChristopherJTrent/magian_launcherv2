@@ -15,6 +15,6 @@ export function loadProfile(filename:string) {
   )
 }
 
-export function saveProfile(filename:string, object:any) {
+export function saveProfile(filename:string, object:unknown) {
   writeFileSync(formatFileName(filename), JSON.stringify(object))
 }

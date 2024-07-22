@@ -1,6 +1,4 @@
-import { useEffect } from "react"
-import { useAppDispatch, useAppSelector } from "@store/store"
-import { receiveProfiles } from "@store/ProfileReducer"
+import {  useAppSelector } from "@store/store"
 import ProfileElement from "./ProfileElement"
 import { Flex } from "@chakra-ui/react"
 import NewProfileForm from "./NewProfileForm"

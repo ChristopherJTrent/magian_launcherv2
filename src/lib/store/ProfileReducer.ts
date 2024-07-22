@@ -95,8 +95,8 @@ export const profileSlice = createSlice({
     setAddonDisabled:  disableExtension('enabledAddons'),
     setPluginDisabled: disableExtension('enabledPlugins'),
     disablePolPlugin:  disableExtension('enabledPolPlugins'),
-    setSettingsValue: (state:profilesMapping, action:PayloadAction<{field:string, value: any}>) => {
-      // @ts-ignore
+    setSettingsValue: (state:profilesMapping, action:PayloadAction<{field:string, value: unknown}>) => {
+      // @ts-expect-error this errors for an unknown reason, but it works.
       state.list[state.currentProfile]
         .settings[action.payload.field as keyof AshitaSettings]
         = action.payload.value

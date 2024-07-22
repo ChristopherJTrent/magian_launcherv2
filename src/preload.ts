@@ -25,12 +25,12 @@ const electronHandler = {
     newUpdateAshita: () => { ipcRenderer.send('magian:legacy:installAshita') },
     deleteProfile: (name: string) => {ipcRenderer.invoke('magian:deleteProfile', name)},
     onUpdateAshita: ( callback: () => void) => {
-      ipcRenderer.on('magian:legacy:installAshita:reply', (_) => {
+      ipcRenderer.on('magian:legacy:installAshita:reply', () => {
         callback()
       })
     },
     onEnsureProfiles: (callback: () => void) => {
-      ipcRenderer.on('magian:ensureProfiles:reply', (_) => {
+      ipcRenderer.on('magian:ensureProfiles:reply', () => {
         callback()
       })
     }

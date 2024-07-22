@@ -1,5 +1,5 @@
-import { existsSync, mkdirSync, open, openSync, write, writeFileSync } from "fs";
-import { repoRegex, Repository } from "Zod/Repository";
+import { existsSync, mkdirSync } from "fs";
+import { Repository } from "Zod/Repository";
 import { ASHITA_LOCATION, DOWNLOADS_LOCATION, INSTALL_LOCATION } from "./paths";
 import { z } from "zod";
 import DownloadFile from "../IO/FileDownloader";
@@ -59,7 +59,7 @@ export function installExtensions(input: {
 }
 
 export function installRepository(input: Repository) {
-
+    console.log(input)
 }
 
 export function installRemoteRepository(location:string) {
@@ -73,5 +73,8 @@ export default function doRepositoryUpdates() {
     if(!existsSync(join(INSTALL_LOCATION, 'repositories.json'))) {
         return
     }
+    //TODO: replace this with opening a file and reading it.
+    // eslint-ignore-next-line
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-var-requires
     const repoData = require(join(INSTALL_LOCATION, 'repositories.json')) as {currentVersion:number, name:string}[]
 }

@@ -10,6 +10,6 @@ export default async function updateAshita():Promise<void> {
     case 'behind':
       return pullAshita()
     default:
-      return new Promise<void>((resolve, _reject) => {resolve()})
+      return new Promise<void>((resolve) => {resolve()})
   }
 }

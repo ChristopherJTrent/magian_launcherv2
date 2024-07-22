@@ -26,14 +26,10 @@ export default function Launcher() {
         window.electron.ipcRenderer.ensureProfiles()
       })
       window.electron.ipcRenderer.onEnsureProfiles(() => {
-        // eslint-disable-next-line promise/catch-or-return, promise/always-return
         handleApplicationLoad(dispatch).then(v => {
-          // eslint-disable-next-line @typescript-eslint/no-shadow
           v.forEach((v2) => {
             setCurrentHook(v2.name)
-            // eslint-disable-next-line promise/catch-or-return
             v2.func().then(() => {
-              // eslint-disable-next-line promise/always-return
               if (v2.name === "Load Playonline Plugins") {
                 setCurrentHook('')
               }
@@ -42,21 +38,10 @@ export default function Launcher() {
         })
       })
     } catch (e) {
-      
+      console.error(e)
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // useEffect(() => {
-  //   if (loader.hooks.length > 0 && remainingHooks === 0) {
-  //     const current = loader.hooks[0]
-  //     dispatch(shiftHook())
-  //     dispatch(setRemainingHooks(1))
-  //     current.func().then(
-  //       () => dispatch(setRemainingHooks(0))
-  //     ).catch((_) => {})
-  //   }
-  // }, [loader, remainingHooks, dispatch])
   return (
   <AppLayout>
     {currentHook.length === 0 &&
@@ -78,7 +63,7 @@ export default function Launcher() {
       }
     }}>
       <TabList>
-		    <Tab width='60px'>
+        <Tab width='60px'>
           <Flex direction='column' color='inherit'>
               <RiProfileLine size='32px' color='inherit'/>
               <p style={{
@@ -134,15 +119,6 @@ export default function Launcher() {
               }}>Settings</p>
           </Flex>
         </Tab>
-		    {/* <Tab width='60px'>
-        <Flex direction='column'>
-              <PiGameController size='large'/>
-              <p style={{
-                fontSize: '6pt',
-                fontWeight: '600'
-              }}>Gamepad</p>
-          </Flex>
-        </Tab> */}
       </TabList>
       <TabPanels>
         <TabPanel>

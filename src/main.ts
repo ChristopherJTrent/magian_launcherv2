@@ -68,11 +68,8 @@ if (!app.isPackaged) {
   // Most likely a breaking change with the update to typescript 5.5
   // The below @ts-ignore lines are required, but I adcknowledge that they are a code smell.
   app.whenReady().then(() => {
-    //@ts-ignore
-    install.default(REDUX_DEVTOOLS, {})
-    //@ts-ignore
+    install(REDUX_DEVTOOLS, {})
       .then((name) => console.log(`Added Extension:  ${name}`))
-      //@ts-ignore
       .catch((err) => console.log('An error occurred: ', err));
   }).catch((err) => {console.log(err)})
 }

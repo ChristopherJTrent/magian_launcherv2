@@ -1,5 +1,5 @@
 import { IpcMain, IpcMainInvokeEvent } from "electron"
-import { readdir, rm } from "fs/promises"
+import { readdir } from "fs/promises"
 import { existsSync } from "fs"
 import updateAshita from "./lib/util/Installation/Ashita"
 import { initializeProfile, loadProfiles, saveProfile } from "./lib/util/IO/ProfileLoader"
@@ -13,20 +13,21 @@ import { initialProfiles } from "@data/DefaultProfile"
 import { join } from "path"
 import { deleteProfile } from "@lib/util/Installation/Profile"
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 type IPCHandler = {channel: string, listener: (event:IpcMainInvokeEvent, ...args: any[]) => Promise<unknown>}
 
 export default function registerIPCCallbacks(ipcMain:IpcMain):void {
   const handlers:IPCHandler[] = [
     {
       channel: 'ashita:update',
-      listener: async (_) => {
+      listener: async () => {
         updateAshita()
       }
     },
 
     {
       channel: 'magian:loadProfiles',
-      listener: async (_) => {
+      listener: async () => {
         return loadProfiles()
       }
     },
@@ -38,7 +39,7 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
     },
     {
       channel: 'ashita:getAddons',
-      listener: async (_) => {
+      listener: async () => {
         return getAddonList()
       }
     },
@@ -50,13 +51,13 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
     },
     {
       channel: 'ashita:getPlugins',
-      listener: async (_) => {
+      listener: async () => {
         return getPluginList()
       }
     },
     {
       channel: 'ashita:getPolPlugins',
-      listener: async _ => getPolPluginList()
+      listener: async () => getPolPluginList()
     },
     {
       channel: 'ashita:saveScript',
@@ -72,7 +73,7 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
     },
     {
       channel: 'magian:ensureGit',
-      listener: async (_) => { ensureGit() }
+      listener: async () => { ensureGit() }
     },
     {
       channel: 'magian:deleteProfile',
@@ -86,11 +87,13 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
   ipcMain.on('magian:legacy:installAshita', (e) => {
     try{
     ensureGit().then(() => {
-      updateAshita().then((v) => {
+      updateAshita().then(() => {
         e.reply('magian:legacy:installAshita:reply')
       })
     })
-  } catch(err) {}})
+  } catch(err) {
+    console.error(err)
+  }})
   ipcMain.on('magian:ensureProfiles', (e) => {
     const doProfiles = () => {
       initializeProfile(initialProfiles.list.default.name)
@@ -119,6 +122,7 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
             e.reply('magian:ensureProfiles:reply')
           }
         }).catch((e) => {
+          console.error(e)
         })
       }
     }

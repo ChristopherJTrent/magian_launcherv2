@@ -4,8 +4,7 @@ import { join } from 'path'
 
 export default async function spawnAshita(scriptName:string) {
   try{
-
-    const bat = spawnSync(
+    spawnSync(
       'Start-Process',
       [
         '-FilePath',
@@ -23,5 +22,6 @@ export default async function spawnAshita(scriptName:string) {
       }
     )
   } catch (e) {
+    console.error(e)
   }
 }

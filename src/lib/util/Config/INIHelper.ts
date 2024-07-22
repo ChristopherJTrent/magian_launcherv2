@@ -2,7 +2,7 @@ import {stringify, parse} from 'ini'
 import { settingsBoolToNumber } from '@data/AshitaSettings'
 import Profile from '@data/Profile'
 
-export function dumpINI(object:Object):string {
+export function dumpINI(object:object):string {
   return stringify(object, {
     align: true,
     sort: false,
@@ -145,6 +145,6 @@ export function dumpAshitaSettings(input:Profile):string {
 }
 
 
-export function parseINI(string:string):Object {
+export function parseINI(string:string):object {
   return parse(string)
 }

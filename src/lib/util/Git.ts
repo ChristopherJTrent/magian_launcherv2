@@ -1,4 +1,4 @@
-import { ChildProcess, ChildProcessWithoutNullStreams, ExecOptions, SpawnOptionsWithoutStdio, exec, spawn } from "child_process"
+import { ChildProcess,ExecOptions, exec } from "child_process"
 import { ASHITA_LOCATION, INSTALL_LOCATION } from "./Installation/paths"
 import { existsSync } from "fs"
 
@@ -8,9 +8,10 @@ function spawnGitProcess(args:string[], opts?:ExecOptions):ChildProcess {
   const proc = exec([`cd ${INSTALL_LOCATION} &&`,'git', ...args].join(' '), {
     windowsHide: true,
     ...opts
-  }, (error, stdout, stderr) => {
   })
-  proc.on('error', (e) => {})
+  proc.on('error', (e) => {
+    console.error(e)
+  })
   return proc
 }
 
@@ -62,6 +63,7 @@ export async function pullAshita():Promise<void> {
        // cwd: ASHITA_LOCATION
       }).on('exit', resolve)
     } catch (err) {
+      console.error(err)
       _reject()
     }
     }
@@ -69,27 +71,16 @@ export async function pullAshita():Promise<void> {
 }
 
 export function installAshita():Promise<void> {
-  return new Promise((resolve, _reject) => {
+  return new Promise((resolve) => {
     try{
-      let string = 'Proc output: '
-      let string2 = 'Proc error: '
       const proc = spawnGitProcess([
         `clone https://github.com/ashitaxi/ashita-v4beta.git "${ASHITA_LOCATION}"`,
       ], {
         timeout: ASHITA_DOWNLOAD_TIMEOUT
       })
-      // @ts-ignore
-      proc.stdout.on('data', (chunk) => {
-        string += chunk.toString()
-      })
-      proc.stdout?.on('end', () => {
-      })
-      // @ts-ignore
-      proc.stderr.on('data', (chunk) => {
-        string2 += chunk.toString()
-      })
       proc.on('close', () => {resolve()})
     } catch(e) {
+      console.error(e)
     }
   })
 }
