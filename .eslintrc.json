@@ -1,4 +1,13 @@
 {
+  "settings": {
+    "import/resolver": {
+      "typescript": {}
+    }
+  },
+  "root": true,
+  "plugins": [
+    "@typescript-eslint"
+  ],
   "env": {
     "browser": true,
     "es6": true,
@@ -13,13 +22,15 @@
     "plugin:import/typescript"
   ],
   "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "rules": {
-    "no-unused-vars": [
+    "@typescript-eslint/no-unused-vars": [
       "error",
       {
         "varsIgnorePattern": "^_",
         "ignoreRestSiblings": true,
-        "reportUsedIgnorePattern": true,
         "caughtErrors": "all",
         "caughtErrorsIgnorePattern": "^_[eE]"
       }
