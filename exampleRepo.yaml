@@ -5,26 +5,6 @@
 # Magian Launcher will refuse to install a repo if a previous major version of it is already installed.
 version: "1.0.0"
 
-extends: 
-  # supports the following providers: 
-    # gh - Github
-      # expects format gh:<username>/<repo name>[@<branch>][/<repo file with ext.>]
-      # defaults:
-        # @branch: main
-        # repo file: repo.yaml
-    # gl - Gitlab
-      # uses the same format as github, just with gl instead of gh
-  - "gh:ThornyFFXI/MiscAshita4"
-
-customReplacers:
-  # Custom Replacers are relative to the root of the ashita installation
-  # note: all paths are sanitized before being passed to any filesystem methods.
-  #   if you manage to get any funny business working: 
-  #     1) I'll be very impressed.
-  #     2) please open an issue on github.
-  - matchPattern: "$LUASHITACAST"
-    replacement: "config/addons/luashitacast"
-
 downloads:
     # This value must be a link to where you can download a copy of the file
   - downloadLink: "https://github.com/ChristopherJTrent/Smart.LAC/archive/refs/heads/master.zip"
@@ -35,3 +15,4 @@ downloads:
     # NOTE: replacements are *only* valid as the first path segment.
     installationRoot: "$LUASHITACAST/Smart.LAC/"
     fileNameOverride: 'Smart'
+  - 
