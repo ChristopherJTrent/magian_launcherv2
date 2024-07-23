@@ -16,5 +16,5 @@ downloads:
     installationRoot: ""
     fileNameOverride: "LuAshitacast"
   - downloadLink: "https://github.com/ThornyFFXI/Sequencer/releases/download/1.01b/Sequencer.zip"
-    fileSystemRoot: ""
+    filesystemRoot: ""
     installationRoot: ""
