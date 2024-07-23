@@ -7,6 +7,6 @@ export default function PolPluginListing() {
   const polPlugins = useAppSelector(state => state.polPlugins)
 
   return <List>
-    {polPlugins.map((v) => <PolPluginElement name={v} />)}
+    {polPlugins.map((v) => <PolPluginElement name={v} key={v}/>)}
   </List>
 }
