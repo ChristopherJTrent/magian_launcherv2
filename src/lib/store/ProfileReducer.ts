@@ -1,7 +1,7 @@
 import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit"
 import Profile, { ExtensionField } from "@data/Profile"
 import { type RootState } from "./store"
-import { initialProfiles, profilesMapping } from "@data/DefaultProfile"
+import { profilesMapping } from "@data/DefaultProfile"
 import AshitaSettings from "@data/AshitaSettings"
 
 export const extensionEnabled = (name: string, type: ExtensionField) => (state: RootState) => (
@@ -69,7 +69,7 @@ export const currentProfile = createSelector((state:RootState) => state.profiles
 
 export const profileSlice = createSlice({
   name: 'profiles',
-  initialState:initialProfiles,
+  initialState: {} as profilesMapping,
   reducers: {
     receiveProfiles: (state: profilesMapping, action: PayloadAction<Profile[]>) => {
       state.list = {}
