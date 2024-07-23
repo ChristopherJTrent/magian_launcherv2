@@ -12,7 +12,5 @@ downloads:
     filesystemRoot: "Smart.LAC-master/"
     # this value is the location (relative to the ashita installation root)
     # where the extension should be installed.
-    # NOTE: replacements are *only* valid as the first path segment.
-    installationRoot: "$LUASHITACAST/Smart.LAC/"
+    installationRoot: "config/addons/luashitacast/Smart.LAC/"
     fileNameOverride: 'Smart'
-  - 
