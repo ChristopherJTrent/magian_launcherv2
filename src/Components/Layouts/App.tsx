@@ -1,5 +1,5 @@
 import { Box, Flex, Text } from '@chakra-ui/react'
-import React, { PropsWithChildren } from 'react'
+import { PropsWithChildren } from 'react'
 
 export default function AppLayout({children}:PropsWithChildren<object>) {
   return (
