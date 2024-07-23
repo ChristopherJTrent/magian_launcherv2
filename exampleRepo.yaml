@@ -10,4 +10,11 @@ downloads:
     # this value is the location (relative to the ashita installation root)
     # where the extension should be installed.
     installationRoot: "config/addons/luashitacast/Smart.LAC/"
-    fileNameOverride: 'Smart'
+    fileNameOverride: "Smart"
+  - downloadLink: "https://github.com/ThornyFFXI/LuAshitacast/releases/download/2.0/LuAshitacast.2.03.zip"
+    filesystemRoot: ""
+    installationRoot: ""
+    fileNameOverride: "LuAshitacast"
+  - downloadLink: "https://github.com/ThornyFFXI/Sequencer/releases/download/1.01b/Sequencer.zip"
+    fileSystemRoot: ""
+    installationRoot: ""
