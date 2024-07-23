@@ -1,5 +1,5 @@
 import './App.css'
-import { ChakraProvider} from '@chakra-ui/react'
+import { ChakraProvider } from '@chakra-ui/react'
 import { Provider } from 'react-redux'
 import theme from '../lib/theme'
 import Launcher from '@components/Launcher'
