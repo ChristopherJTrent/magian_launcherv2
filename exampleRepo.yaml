@@ -1,6 +1,3 @@
-# This file will not function as-is, as the files it "extends" don't exist
-# However, the structure is correct.
-
 # This version string follows the semver (Semantic Versioning) standard.
 # Magian Launcher will refuse to install a repo if a previous major version of it is already installed.
 version: "1.0.0"
