@@ -27,5 +27,5 @@ function convertLocation(input: string): string {
 
 export async function downloadYamlFile(location: string): Promise<Repository> {
     const repo = RepositoryValidator.safeParse(parse(await (await fetch(convertLocation(location))).text()))
-    return repo.success ? {...repo.data, success: true} : {success: false, downloads: []}
+    return repo.success ? {...repo.data, success: true} : {success: false, version: '1.0.0-invalid', downloads: []}
 }
