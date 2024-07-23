@@ -1,10 +1,12 @@
+import valid  from 'semver/functions/valid'
 import {z} from 'zod'
 
 export const repoRegex = /^(?<service>gl:|gh:)(?<user>[a-zA-Z0-9-]+)\/(?<repo>[\w.-]+)(?:@(?<branch>[a-zA-Z0-9\-_.]+))?(?:\/(?<file>\w+\.yaml))?$/
 
 const Repository = z.object({
+    // helpfully, semver returns a falsey value if the string isn't valid.
+    version: z.string().refine(valid),
     success: z.optional(z.boolean()),
-
     customReplacers: z.optional(z.array(z.object({
         matchPattern: z.string(),
         replacement: z.string()
