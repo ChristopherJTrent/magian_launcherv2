@@ -2,6 +2,7 @@ import { app, BrowserWindow, ipcMain} from 'electron';
 import path from 'path';
 import { updateElectronApp } from 'update-electron-app';
 import registerIPCCallbacks from './ipcHandlers';
+import { downloadYamlFile } from '@lib/util/helpers/YAML/fileHandler';
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -12,6 +13,9 @@ registerIPCCallbacks(ipcMain)
 
 updateElectronApp()
 
+downloadYamlFile('gh:ChristopherJTrent/magian_launcherv2@master/exampleRepo.yaml').then((v) => {
+  console.log(v)
+})
 
 const createWindow = () => {
   const RESOURCES_PATH = app.isPackaged
