@@ -2,7 +2,6 @@ import { app, BrowserWindow, ipcMain} from 'electron';
 import path from 'path';
 import { updateElectronApp } from 'update-electron-app';
 import registerIPCCallbacks from './ipcHandlers';
-import install, { REDUX_DEVTOOLS } from 'electron-devtools-installer'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -15,7 +14,6 @@ updateElectronApp()
 
 
 const createWindow = () => {
-  
   const RESOURCES_PATH = app.isPackaged
   ? path.join(process.resourcesPath, 'assets')
   : path.join(__dirname, '../../assets')
@@ -68,9 +66,14 @@ if (!app.isPackaged) {
   // Most likely a breaking change with the update to typescript 5.5
   // The below @ts-ignore lines are required, but I adcknowledge that they are a code smell.
   app.whenReady().then(() => {
-    install(REDUX_DEVTOOLS, {})
-      .then((name) => console.log(`Added Extension:  ${name}`))
-      .catch((err) => console.log('An error occurred: ', err));
+    import('electron-devtools-installer').then((edi) => {
+      // @ts-expect-error electron-devtools-installer is malformed, double default is required.
+      const install = edi.default.default
+      const {REDUX_DEVTOOLS} = edi
+      install(REDUX_DEVTOOLS)
+        .then((name:string) => console.log("added extension: ", name))
+        .catch((err:string) => console.log('an error occurred: ', err))
+    }).catch(err => console.log(err))
   }).catch((err) => {console.log(err)})
 }
 
