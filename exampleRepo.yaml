@@ -18,3 +18,7 @@ downloads:
   - downloadLink: "https://github.com/ThornyFFXI/Sequencer/releases/download/1.01b/Sequencer.zip"
     filesystemRoot: ""
     installationRoot: ""
+  - downloadLink: "https://github.com/Magian-Tools/smart-init/archive/refs/heads/main.zip"
+    filesystemRoot: "smart-init-main"
+    installationRoot: ""
+    fileNameOverride: "Smart-Init"
