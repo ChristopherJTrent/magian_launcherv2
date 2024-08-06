@@ -1,5 +1,5 @@
-import { AccordionButton, AccordionIcon, Box } from "@chakra-ui/react";
-import { PropsWithChildren } from "react";
+import { AccordionButton, AccordionIcon, Box } from "@chakra-ui/react"
+import { PropsWithChildren } from "react"
 
 
 export default function AccordButton({children}:PropsWithChildren) {

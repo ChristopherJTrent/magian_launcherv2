@@ -1,5 +1,5 @@
 
-export type settingsBoolean = (boolean | 'useRegistry');
+export type settingsBoolean = (boolean | 'useRegistry')
 
 export const settingsBoolToNumber = (v:settingsBoolean):number =>
   // eslint-disable-next-line no-nested-ternary

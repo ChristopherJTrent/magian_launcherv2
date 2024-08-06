@@ -4,7 +4,7 @@ import { contextBridge, ipcRenderer} from 'electron'
 import Profile from './lib/data/Profile'
 import { AddonData } from './lib/util/helpers/getExtensionData'
 
-export type Channels = 'ipc-example';
+export type Channels = 'ipc-example'
 
 const electronHandler = {
   ipcRenderer: {
@@ -39,4 +39,4 @@ const electronHandler = {
 
 contextBridge.exposeInMainWorld('electron', electronHandler)
 
-export type ElectronHandler = typeof electronHandler;
+export type ElectronHandler = typeof electronHandler
