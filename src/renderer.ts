@@ -26,9 +26,9 @@
  * ```
  */
 
-import { createRoot } from 'react-dom/client';
-import './index.css';
-import RootNode from './renderer/index';
+import { createRoot } from 'react-dom/client'
+import './index.css'
+import RootNode from './renderer/index'
 
 const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container)
