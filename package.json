@@ -24,7 +24,6 @@
     "@electron-forge/publisher-github": "^7.4.0",
     "@electron/fuses": "^1.8.0",
     "@types/ini": "^4.1.1",
-    "@types/js-yaml": "^4.0.9",
     "@types/node": "^20.14.9",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
