@@ -1,7 +1,7 @@
-import { existsSync, PathLike} from "fs";
-import { readFile } from "fs/promises";
-import { parse } from "yaml";
-import RepositoryValidator, {repoRegex, type Repository} from "Zod/Repository";
+import { existsSync, PathLike} from "fs"
+import { readFile } from "fs/promises"
+import { parse } from "yaml"
+import RepositoryValidator, {repoRegex, type Repository} from "Zod/Repository"
 
 /**
  * Loads a yaml file from disk and converts it into an object.
@@ -11,13 +11,17 @@ import RepositoryValidator, {repoRegex, type Repository} from "Zod/Repository";
 export async function loadYamlFile(path: PathLike): Promise<Repository> {
     if(existsSync(path)) {
         const repo = RepositoryValidator.safeParse(parse((await readFile(path)).toString()))
-        return repo.success ? {...repo.data, success: true} : {downloads: []}
+        return repo.success ? {...repo.data, success: true} : {version: '1.0.0-invalid', downloads: []}
     } else {
-        return {downloads: []}
+        return {version: '1.0.0-invalid', downloads: []}
     }
 }
 
 function convertLocation(input: string): string {
+    if(input.startsWith('http')) {
+        console.log('convertLocation passed URL')
+        return input
+    }
     const {service, user, repo, branch, file} = repoRegex.exec(input)?.groups ?? {}
 
     return service === 'gh:' 
