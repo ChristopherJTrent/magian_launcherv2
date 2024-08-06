@@ -1,12 +1,12 @@
-import { Flex, Spinner, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react"
+import { Flex, Spacer, Spinner, Tab, TabList, TabPanel, TabPanels, Tabs, Text } from "@chakra-ui/react"
 import { RiProfileLine } from 'react-icons/ri'
 import { SiCplusplus, SiLua } from 'react-icons/si'
 import { FaGear } from 'react-icons/fa6'
+import { BsCloudDownload } from 'react-icons/bs'
 import { useEffect, useState } from "react"
 import AddonListing from "@widgets/Tabs/Addons/AddonListing"
 import AppLayout from "./Layouts/App"
 import SettingsEditor from "@widgets/SettingsEditor"
-import GamepadEditor from "@widgets/GamepadEditor"
 import ProfileListing from "@widgets/Tabs/Profiles/ProfileListing"
 import PluginListing from "@widgets/Tabs/Plugins/PluginListing"
 import { useAppDispatch } from "@store/store"
@@ -111,12 +111,22 @@ export default function Launcher() {
           </Flex>
         </Tab>
         <Tab width='60px'>
-        <Flex direction='column'>
+          <Flex direction='column' justify='center' align='center'>
               <FaGear size='32px'/>
               <p style={{
                 fontSize: '6pt',
                 fontWeight: '600'
               }}>Settings</p>
+          </Flex>
+        </Tab>
+        <Spacer />
+        <Tab width='60px'>
+          <Flex direction='column' justify='center' align='center'>
+            <BsCloudDownload size='32px' />
+            <p style={{
+              fontSize: '6pt',
+              fontWeight: '600'
+            }}>Repositories</p>
           </Flex>
         </Tab>
       </TabList>
@@ -138,8 +148,11 @@ export default function Launcher() {
         <TabPanel>
           <SettingsEditor />
         </TabPanel>
-        <TabPanel>
+        {/* <TabPanel>
           <GamepadEditor />
+        </TabPanel> */}
+        <TabPanel>
+          <Text>Repositories are coming soon...</Text>
         </TabPanel>
       </TabPanels>
     </Tabs> || <Flex justify='center' align='center' width='100%' height='calc(100vh - 30px)' direction='column'>
