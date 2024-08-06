@@ -7,11 +7,11 @@ const Repository = z.object({
     // helpfully, semver returns a falsey value if the string isn't valid.
     version: z.string().refine(valid),
     success: z.optional(z.boolean()),
-    customReplacers: z.optional(z.array(z.object({
-        matchPattern: z.string(),
-        replacement: z.string()
-    }))),
-    extends: z.optional(z.array(z.string().regex(repoRegex))),
+    //customReplacers: z.optional(z.array(z.object({
+    //    matchPattern: z.string(),
+    //    replacement: z.string()
+    //}))),
+    //extends: z.optional(z.array(z.string().regex(repoRegex))),
     downloads: z.array(z.object({
         downloadLink: z.string().url(),
         filesystemRoot: z.string(),
