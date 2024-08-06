@@ -1,12 +1,15 @@
-import { existsSync, mkdirSync } from "fs";
-import { Repository } from "Zod/Repository";
-import { ASHITA_LOCATION, DOWNLOADS_LOCATION, INSTALL_LOCATION } from "./paths";
-import { z } from "zod";
-import DownloadFile from "../IO/FileDownloader";
-import extract from "extract-zip";
-import { join } from "path";
-import moveFiles from "../IO/moveFiles";
-import { downloadYamlFile } from "../helpers/YAML/fileHandler";
+import { existsSync, mkdirSync } from "fs"
+import { Repository } from "Zod/Repository"
+import { ASHITA_LOCATION, DOWNLOADS_LOCATION, INSTALL_LOCATION } from "./paths"
+import { z } from "zod"
+import DownloadFile from "../IO/FileDownloader"
+import extract from "extract-zip"
+import { join } from "path"
+import moveFiles from "../IO/moveFiles"
+import { downloadYamlFile } from "../helpers/YAML/fileHandler"
+import { getInstalledRepositories } from "Zod/installedRepositories"
+import parseSemver from 'semver/functions/parse'
+import validateSemver from 'semver/functions/valid'
 
 export function ensureDirectories() {
     if(!existsSync(DOWNLOADS_LOCATION)) mkdirSync(DOWNLOADS_LOCATION, {recursive: true})
@@ -16,8 +19,9 @@ export function installExtensions(input: {
         downloadLink: string, 
         filesystemRoot: string, 
         installationRoot: string,
-        fileNameOverride: string}
-    ) {
+        fileNameOverride?: string
+    }) {
+    console.log(`installing: ${input}`)
     ensureDirectories()
     const checkedFileURL = z.string().url().safeParse(input.downloadLink)
     if (! checkedFileURL.success) {
@@ -30,16 +34,9 @@ export function installExtensions(input: {
         return
     }
     
-    let filename = checkedFileURL.data.split('/').pop()
-    
-    if (filename == null) {
-        console.error('This should never occur. A validated URL\'s last segment is undefined')
-        return
-    }
-
-    if (input.fileNameOverride) {
-        filename = input.fileNameOverride
-    }
+    // can assert that pop will return a value 
+    // because we're ensuring that the download link is a valid url pointing to a zip file.
+    const filename = input.fileNameOverride ?? checkedFileURL.data.split('/').pop()!
 
     DownloadFile(checkedFileURL.data, filename).then(() => {
         console.log(filename)
@@ -53,28 +50,60 @@ export function installExtensions(input: {
         if(input.filesystemRoot) {
             root = join(root, input.filesystemRoot)
         }
-        console.log('beginning move')
-        moveFiles(root, input.installationRoot ? join(ASHITA_LOCATION, input.installationRoot) : ASHITA_LOCATION)
+        const installLocation = input.installationRoot ? join(ASHITA_LOCATION, input.installationRoot) : ASHITA_LOCATION
+        console.log(`beginning move from ${root} to ${installLocation}`)
+        moveFiles(root, installLocation)
     })
 }
 
+
+
 export function installRepository(input: Repository) {
     console.log(input)
+    if (input.success) {
+        input.downloads.forEach((v) => {
+            installExtensions(v)
+        })
+    }
 }
 
 export function installRemoteRepository(location:string) {
     downloadYamlFile(location).then((repo) => {
+        console.log(repo)
         installRepository(repo)
     })
 }
 
-export default function doRepositoryUpdates() {
+function doVersionCheck(left:string, right:string):boolean {
+    if (left === right) {
+        return false
+    }
+    if (validateSemver(right) == null) {
+        return false
+    }
+    if (validateSemver(left) == null) {
+        return false
+    }
+    if (parseSemver(left)!.major !== parseSemver(right)!.major) {
+        return false
+    }
+    return true
+}
+
+export default async function doRepositoryUpdates() {
     // if this file doesn't exist, no repositories are installed.
     if(!existsSync(join(INSTALL_LOCATION, 'repositories.json'))) {
+        console.log('no repositories installed.')
         return
     }
-    //TODO: replace this with opening a file and reading it.
-    // eslint-ignore-next-line
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars, @typescript-eslint/no-var-requires
-    const repoData = require(join(INSTALL_LOCATION, 'repositories.json')) as {currentVersion:number, name:string}[]
+    const repositories = getInstalledRepositories()
+    if (repositories.success) {
+        repositories.data.forEach(async (v) => {
+            if (validateSemver(v.installedVersion) == null) return
+            const data = await downloadYamlFile(v.remote)
+            if (doVersionCheck(v.installedVersion, data.version)){
+                installRepository(data)
+            }
+        })
+    }
 }
