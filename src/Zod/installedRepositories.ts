@@ -1,7 +1,7 @@
-import { SafeParseReturnType, z } from "zod"
+import { z } from "zod"
 import validateSemver from 'semver/functions/valid'
 import { repoRegex } from "./Repository"
-import { readFileSync, writeFileSync } from "fs"
+import { existsSync, readFileSync, writeFileSync } from "fs"
 import { join } from "path"
 import { INSTALL_LOCATION } from "@lib/util/Installation/paths"
 
@@ -12,6 +12,7 @@ const installedRepositories = z.array(z.object({
 
 export function getInstalledRepositories() {
     try{
+        if(!existsSync(join(INSTALL_LOCATION, 'repositories.json'))) return installedRepositories.safeParse([])
         return installedRepositories.safeParse(JSON.parse(
             readFileSync(
                 join(INSTALL_LOCATION, 'repositories.json')
@@ -19,7 +20,7 @@ export function getInstalledRepositories() {
         ))
     } catch (err) {
         console.log(err)
-        return {success: false, error: err} as SafeParseReturnType<z.infer<typeof installedRepositories>, z.infer<typeof installedRepositories>>
+        return installedRepositories.safeParse([])
     }
 }
 
