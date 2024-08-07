@@ -4,16 +4,21 @@ import { updateElectronApp } from 'update-electron-app'
 import registerIPCCallbacks from './ipcHandlers'
 import doRepositoryUpdates, { installRemoteRepository } from '@lib/util/Installation/RepositoryInstaller'
 import { getInstalledRepositories } from 'Zod/installedRepositories'
+import { config } from 'dotenv'
+import { initialize, trackEvent } from '@aptabase/electron/main'
+
+config()
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit()
 }
 
+initialize(process.env.APTABASE_APP_KEY!)
+
 registerIPCCallbacks(ipcMain)
 
 updateElectronApp()
-
 
 {
   const remote = 'gh:ChristopherJTrent/magian_launcherv2@master/exampleRepo.yaml'
@@ -28,6 +33,7 @@ updateElectronApp()
 }
 
 const createWindow = () => {
+  trackEvent('appLoaded')
   const RESOURCES_PATH = app.isPackaged
   ? path.join(process.resourcesPath, 'assets')
   : path.join(__dirname, '../../assets')

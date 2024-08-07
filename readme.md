@@ -1,5 +1,13 @@
 # Magian Launcher
 
+### A note on Analytics
+This application uses Aptabase for analytics.
+The only event we track is the initial load of the app, and data is stored in Virginia (USA).
+We receive the following information:
+* App Version
+* Time of application load
+* Location (Region and Country)
+* Operating System version
 
 ## Installation
 * Make sure you have a working version of Final Fantasy XI Online installed.
