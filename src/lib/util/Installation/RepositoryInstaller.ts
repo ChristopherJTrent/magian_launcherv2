@@ -7,7 +7,7 @@ import extract from "extract-zip"
 import { join } from "path"
 import moveFiles from "../IO/moveFiles"
 import { downloadYamlFile } from "../helpers/YAML/fileHandler"
-import { getInstalledRepositories } from "Zod/installedRepositories"
+import { addInstalledRepository, getInstalledRepositories } from "Zod/installedRepositories"
 import parseSemver from 'semver/functions/parse'
 import validateSemver from 'semver/functions/valid'
 
@@ -60,6 +60,7 @@ export function installExtensions(input: {
 
 export function installRepository(input: Repository) {
     console.log(input)
+    
     if (input.success) {
         input.downloads.forEach((v) => {
             installExtensions(v)
@@ -71,6 +72,7 @@ export function installRemoteRepository(location:string) {
     downloadYamlFile(location).then((repo) => {
         console.log(repo)
         installRepository(repo)
+        addInstalledRepository(repo.version, location)
     })
 }
 
@@ -103,6 +105,8 @@ export default async function doRepositoryUpdates() {
             const data = await downloadYamlFile(v.remote)
             if (doVersionCheck(v.installedVersion, data.version)){
                 installRepository(data)
+            } else {
+                console.log(`repository ${v.remote} up to date, skipping...`)
             }
         })
     }
