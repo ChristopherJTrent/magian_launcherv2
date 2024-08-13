@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync } from "fs"
+import { existsSync, mkdirSync, PathLike } from "fs"
 import { Repository } from "Zod/Repository"
 import { ASHITA_LOCATION, DOWNLOADS_LOCATION, INSTALL_LOCATION } from "./paths"
 import { z } from "zod"
@@ -10,6 +10,7 @@ import { downloadYamlFile } from "../helpers/YAML/fileHandler"
 import { addInstalledRepository, getInstalledRepositories } from "Zod/installedRepositories"
 import parseSemver from 'semver/functions/parse'
 import validateSemver from 'semver/functions/valid'
+import GarbageCollector from "./GarbageCollector"
 
 export function ensureDirectories() {
     if(!existsSync(DOWNLOADS_LOCATION)) mkdirSync(DOWNLOADS_LOCATION, {recursive: true})
@@ -20,9 +21,11 @@ export function installExtensions(input: {
         filesystemRoot: string, 
         installationRoot: string,
         fileNameOverride?: string
-    }) {
+    }, cwd: PathLike) {
     console.log(`installing: ${input}`)
+
     ensureDirectories()
+
     const checkedFileURL = z.string().url().safeParse(input.downloadLink)
     if (! checkedFileURL.success) {
         console.error('Download link is not a valid URL')
@@ -38,15 +41,21 @@ export function installExtensions(input: {
     // because we're ensuring that the download link is a valid url pointing to a zip file.
     const filename = input.fileNameOverride ?? checkedFileURL.data.split('/').pop()!
 
+    const downloadLocation = cwd === '' ? 
+        join(DOWNLOADS_LOCATION, Math.random().toString(20).substring(2, 8))
+        : join(DOWNLOADS_LOCATION, cwd.toString())
+    
+    GarbageCollector.instance.push(downloadLocation)
+
     DownloadFile(checkedFileURL.data, filename).then(() => {
         console.log(filename)
         return extract(join(DOWNLOADS_LOCATION, filename), {
-            dir: join(DOWNLOADS_LOCATION, filename.slice(0, -4))
+            dir: join(downloadLocation, filename.slice(0, -4))
         }).catch((err) => {
             console.error(err, ' in extraction')
         })
     }).then(() => {
-        let root = join(DOWNLOADS_LOCATION, filename.slice(0, -4))
+        let root = join(downloadLocation, filename.slice(0, -4))
         if(input.filesystemRoot) {
             root = join(root, input.filesystemRoot)
         }
@@ -58,14 +67,15 @@ export function installExtensions(input: {
 
 
 
-export function installRepository(input: Repository) {
+export function installRepository(input: Repository, cwd: PathLike = '') {
     console.log(input)
     
     if (input.success) {
         input.downloads.forEach((v) => {
-            installExtensions(v)
+            installExtensions(v, cwd)
         })
     }
+    GarbageCollector.instance.run()
 }
 
 export function installRemoteRepository(location:string) {
