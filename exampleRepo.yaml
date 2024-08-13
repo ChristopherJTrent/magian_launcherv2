@@ -1,6 +1,6 @@
 # This version string follows the semver (Semantic Versioning) standard.
 # Magian Launcher will refuse to install a repo if a previous major version of it is already installed.
-version: "1.0.0"
+version: "1.0.1"
 
 downloads:
     # This value must be a link to where you can download a copy of the file
