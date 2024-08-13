@@ -1,12 +1,31 @@
 import { initialProfiles } from "@lib/data/DefaultProfile"
 import updateAshita from "@lib/util/Installation/Ashita"
+import GarbageCollector from "@lib/util/Installation/GarbageCollector"
 import { ensureGit, PROFILE_LOCATION } from "@lib/util/Installation/paths"
+import doRepositoryUpdates, { installRemoteRepository } from "@lib/util/Installation/RepositoryInstaller"
 import { initializeProfile, saveProfile } from "@lib/util/IO/ProfileLoader"
 import { IpcMainEvent } from "electron"
 import { existsSync } from "fs"
 import { readdir } from "fs/promises"
 import { join } from "path"
+import { getInstalledRepositories } from "Zod/installedRepositories"
 
+export const updateRepositoriesCallback = (e: IpcMainEvent) => {
+    const remote = 'gh:ChristopherJTrent/magian_launcherv2@master/exampleRepo.yaml'
+    const repos = getInstalledRepositories()
+    if (repos.success && repos.data.some((v) => v.remote === remote )) {
+      console.log('file found, data read. repositories updating...')
+      doRepositoryUpdates().then(() => {
+        e.reply('magian:legacy:updateRepositories:reply')
+        GarbageCollector.instance.run()
+      })
+    } else {
+      console.log(`error in updateRepositoriesCallback: ${repos.error}, object: ${repos}`)
+      installRemoteRepository(remote)
+      GarbageCollector.instance.run()
+      e.reply('magian:legacy:updateRepositories:reply')
+    }
+  }
 
 export const ensureProfilesCallback = (e: IpcMainEvent) => {
     const doProfiles = () => {

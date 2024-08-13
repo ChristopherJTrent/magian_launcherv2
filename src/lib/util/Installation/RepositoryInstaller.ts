@@ -75,7 +75,6 @@ export function installRepository(input: Repository, cwd: PathLike = '') {
             installExtensions(v, cwd)
         })
     }
-    GarbageCollector.instance.run()
 }
 
 export function installRemoteRepository(location:string) {

@@ -22,6 +22,13 @@ export default function Launcher() {
       window.electron.ipcRenderer.newUpdateAshita()
 
       window.electron.ipcRenderer.onUpdateAshita(() => {
+        setCurrentHook('updating repositories')
+        window.electron.ipcRenderer.updateRepositories()
+      })
+
+      window.electron.ipcRenderer.updateRepositories()
+
+      window.electron.ipcRenderer.onUpdateRepositories(() => {
         setCurrentHook('ensuring profiles')
         window.electron.ipcRenderer.ensureProfiles()
       })

@@ -2,8 +2,6 @@ import { app, BrowserWindow, ipcMain} from 'electron'
 import path from 'path'
 import { updateElectronApp } from 'update-electron-app'
 import registerIPCCallbacks from './ipcHandlers'
-import doRepositoryUpdates, { installRemoteRepository } from '@lib/util/Installation/RepositoryInstaller'
-import { getInstalledRepositories } from 'Zod/installedRepositories'
 import { config } from 'dotenv'
 import { initialize, trackEvent } from '@aptabase/electron/main'
 
@@ -14,23 +12,17 @@ if (require('electron-squirrel-startup')) {
   app.quit()
 }
 
-initialize(process.env.APTABASE_APP_KEY!)
+try{
+  initialize(process.env.APTABASE_APP_KEY!)
+} catch (e) {
+  console.error(e)
+}
 
 registerIPCCallbacks(ipcMain)
 
 updateElectronApp()
 
-{
-  const remote = 'gh:ChristopherJTrent/magian_launcherv2@master/exampleRepo.yaml'
-  const repos = getInstalledRepositories()
-  if (repos.success && repos.data.some((v) => v.remote === remote )) {
-    console.log('file found, data read. repositories updating...')
-    doRepositoryUpdates()
-  } else {
-    console.log(repos.error)
-    installRemoteRepository(remote)
-  }
-}
+
 
 const createWindow = () => {
   trackEvent('appLoaded')

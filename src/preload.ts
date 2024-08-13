@@ -23,6 +23,7 @@ const electronHandler = {
     getAddonData: (name: string) => ipcRenderer.invoke('ashita:getAddonData',name) as Promise<AddonData>,
     ensureProfiles: () => ipcRenderer.send('magian:ensureProfiles'),
     newUpdateAshita: () => { ipcRenderer.send('magian:legacy:installAshita') },
+    updateRepositories: () => {ipcRenderer.send('magian:legacy:updateRepositories')},
     deleteProfile: (name: string) => {ipcRenderer.invoke('magian:deleteProfile', name)},
     onUpdateAshita: ( callback: () => void) => {
       ipcRenderer.on('magian:legacy:installAshita:reply', () => {
@@ -33,6 +34,9 @@ const electronHandler = {
       ipcRenderer.on('magian:ensureProfiles:reply', () => {
         callback()
       })
+    },
+    onUpdateRepositories: (callback: () => void) => {
+      ipcRenderer.on('magian:legacy:updateRepositories:reply', () => callback())
     }
   },
 }

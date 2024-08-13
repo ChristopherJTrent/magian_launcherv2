@@ -8,7 +8,7 @@ import saveScript from "./lib/util/IO/ScriptLoader"
 import { ensureGit } from "./lib/util/Installation/paths"
 import { getAddonData } from "./lib/util/helpers/getExtensionData"
 import { deleteProfile } from "@lib/util/Installation/Profile"
-import { ensureProfilesCallback, installAshitaCallback } from "ipcCallbacks"
+import { ensureProfilesCallback, installAshitaCallback, updateRepositoriesCallback } from "ipcCallbacks"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type IPCHandler = {channel: string, listener: (event:IpcMainInvokeEvent, ...args: any[]) => Promise<unknown>}
@@ -89,6 +89,10 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
     {
       channel: 'magian:ensureProfiles',
       listener: ensureProfilesCallback
+    },
+    {
+      channel: 'magian:legacy:updateRepositories',
+      listener: updateRepositoriesCallback
     }
   ]
 
