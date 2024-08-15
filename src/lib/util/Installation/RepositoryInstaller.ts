@@ -1,11 +1,10 @@
-import { existsSync, mkdirSync, PathLike } from "fs"
+import { cpSync, existsSync, mkdirSync, PathLike } from "fs"
 import { Repository } from "Zod/Repository"
 import { ASHITA_LOCATION, DOWNLOADS_LOCATION, INSTALL_LOCATION } from "./paths"
 import { z } from "zod"
 import DownloadFile from "../IO/FileDownloader"
 import extract from "extract-zip"
 import { join } from "path"
-import moveFiles from "../IO/moveFiles"
 import { downloadYamlFile } from "../helpers/YAML/fileHandler"
 import { addInstalledRepository, getInstalledRepositories } from "Zod/installedRepositories"
 import parseSemver from 'semver/functions/parse'
@@ -18,7 +17,7 @@ export function ensureDirectories() {
 
 export function installExtensions(input: {
         downloadLink: string, 
-        filesystemRoot: string, 
+        filesystemRoot?: string, 
         installationRoot: string,
         fileNameOverride?: string
     }, cwd: PathLike) {
@@ -47,7 +46,7 @@ export function installExtensions(input: {
     
     GarbageCollector.instance.push(downloadLocation)
 
-    DownloadFile(checkedFileURL.data, filename).then(() => {
+    return DownloadFile(checkedFileURL.data, filename).then(() => {
         console.log(filename)
         return extract(join(DOWNLOADS_LOCATION, filename), {
             dir: join(downloadLocation, filename.slice(0, -4))
@@ -61,7 +60,10 @@ export function installExtensions(input: {
         }
         const installLocation = input.installationRoot ? join(ASHITA_LOCATION, input.installationRoot) : ASHITA_LOCATION
         console.log(`beginning move from ${root} to ${installLocation}`)
-        moveFiles(root, installLocation)
+        return cpSync(root, installLocation, {
+            force: true,
+            recursive: true
+        })
     })
 }
 
@@ -69,19 +71,18 @@ export function installExtensions(input: {
 
 export function installRepository(input: Repository, cwd: PathLike = '') {
     console.log(input)
-    
     if (input.success) {
-        input.downloads.forEach((v) => {
-            installExtensions(v, cwd)
-        })
+        return input.downloads.map((v) => installExtensions(v, cwd)).filter((v) => v != undefined)
     }
+    return []
 }
 
 export function installRemoteRepository(location:string) {
-    downloadYamlFile(location).then((repo) => {
+    return downloadYamlFile(location).then((repo) => {
         console.log(repo)
-        installRepository(repo)
-        addInstalledRepository(repo.version, location)
+        return Promise.all(installRepository(repo)).then(() => {
+            addInstalledRepository(repo.version, location)
+        })
     })
 }
 
@@ -101,7 +102,8 @@ function doVersionCheck(left:string, right:string):boolean {
     return true
 }
 
-export default async function doRepositoryUpdates() {
+export default function doRepositoryUpdates() {
+    const promises:Promise<void[]>[] = []
     // if this file doesn't exist, no repositories are installed.
     if(!existsSync(join(INSTALL_LOCATION, 'repositories.json'))) {
         console.log('no repositories installed.')
@@ -109,14 +111,22 @@ export default async function doRepositoryUpdates() {
     }
     const repositories = getInstalledRepositories()
     if (repositories.success) {
-        repositories.data.forEach(async (v) => {
+        repositories.data.forEach((v) => {
+            console.log(`performing update on: ${v.remote}, installed version: ${v.installedVersion}`)
             if (validateSemver(v.installedVersion) == null) return
-            const data = await downloadYamlFile(v.remote)
-            if (doVersionCheck(v.installedVersion, data.version)){
-                installRepository(data)
-            } else {
-                console.log(`repository ${v.remote} up to date, skipping...`)
-            }
+            downloadYamlFile(v.remote).then(data => {
+                console.log(`Downloaded: ${v.remote}
+                    version: ${data.version}
+                    ${
+                        data.downloads.map((v) => `file: ${v.downloadLink.split('/').pop()!}`)
+                    }`)
+                if (doVersionCheck(v.installedVersion, data.version)){
+                    promises.push((Promise.all(installRepository(data))))
+                } else {
+                    console.log(`repository ${v.remote} up to date, skipping...`)
+                }
+            })
         })
     }
+    return promises
 }

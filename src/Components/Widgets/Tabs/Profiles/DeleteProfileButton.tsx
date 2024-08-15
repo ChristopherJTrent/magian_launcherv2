@@ -42,7 +42,7 @@ export default function DeleteProfileButton({name}:DeleteProfileButtonProps) {
                                 dispatch(removeProfile(name))
                                 onClose()
                             } catch (err) {
-                                console.log(err)
+                                // console.log(err)
                             }
                         }}>
                             Confirm

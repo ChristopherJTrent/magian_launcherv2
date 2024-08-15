@@ -76,7 +76,7 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
     {
       channel: 'magian:deleteProfile',
       listener: async(_, name:string) => {
-        console.log('received delete profile for '+name)
+        // console.log('received delete profile for '+name)
         await deleteProfile(name)
       }
     }

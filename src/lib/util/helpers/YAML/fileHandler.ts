@@ -19,7 +19,7 @@ export async function loadYamlFile(path: PathLike): Promise<Repository> {
 
 function convertLocation(input: string): string {
     if(input.startsWith('http')) {
-        console.log('convertLocation passed URL')
+        // console.log('convertLocation passed URL')
         return input
     }
     const {service, user, repo, branch, file} = repoRegex.exec(input)?.groups ?? {}
@@ -31,5 +31,6 @@ function convertLocation(input: string): string {
 
 export async function downloadYamlFile(location: string): Promise<Repository> {
     const repo = RepositoryValidator.safeParse(parse(await (await fetch(convertLocation(location))).text()))
+    // console.log(repo.success ? repo.data : repo.error)
     return repo.success ? {...repo.data, success: true} : {success: false, version: '1.0.0-invalid', downloads: []}
 }

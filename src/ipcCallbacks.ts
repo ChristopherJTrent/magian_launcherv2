@@ -14,16 +14,18 @@ export const updateRepositoriesCallback = (e: IpcMainEvent) => {
     const remote = 'gh:ChristopherJTrent/magian_launcherv2@master/exampleRepo.yaml'
     const repos = getInstalledRepositories()
     if (repos.success && repos.data.some((v) => v.remote === remote )) {
-      console.log('file found, data read. repositories updating...')
-      doRepositoryUpdates().then(() => {
-        e.reply('magian:legacy:updateRepositories:reply')
+      // console.log('file found, data read. repositories updating...')
+      // this is gross and I hate it, but this is the only way to get it to work. Thanks @node_maintainers
+      Promise.all(doRepositoryUpdates() ?? []).then(() => {
         GarbageCollector.instance.run()
+        e.reply('magian:legacy:updateRepositories:reply')
       })
     } else {
-      console.log(`error in updateRepositoriesCallback: ${repos.error}, object: ${repos}`)
-      installRemoteRepository(remote)
-      GarbageCollector.instance.run()
-      e.reply('magian:legacy:updateRepositories:reply')
+      // console.log(`error in updateRepositoriesCallback: ${repos.error}, object: ${repos}`)
+      installRemoteRepository(remote).then(() => {
+        GarbageCollector.instance.run()
+        e.reply('magian:legacy:updateRepositories:reply')
+      })
     }
   }
 
@@ -48,14 +50,14 @@ export const ensureProfilesCallback = (e: IpcMainEvent) => {
           .filter(entry => entry.isDirectory())
           .filter(entry => existsSync(join(PROFILE_LOCATION, entry.name, 'profile.json')))
           .length === 0) {
-            console.log("saving profiles...")
+            // console.log("saving profiles...")
             doProfiles()
           } else {
-            console.log("Profiles already exist")
+            // console.log("Profiles already exist")
             e.reply('magian:ensureProfiles:reply')
           }
         }).catch((e) => {
-          console.error(e)
+          // console.error(e)
         })
     }
 }
@@ -68,6 +70,6 @@ export const installAshitaCallback = (e: IpcMainEvent) => {
             })
         })
     } catch(err) {
-        console.error(err)
+        // console.error(err)
     }
 }

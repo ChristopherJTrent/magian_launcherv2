@@ -16,7 +16,7 @@ import PolPluginListing from "@widgets/Tabs/PolPlugins/PolPluginListing"
 export default function Launcher() {
   // const remainingHooks = useAppSelector(state => state.flags.remainingHooks)
   const dispatch = useAppDispatch()
-  const [currentHook, setCurrentHook] = useState('updating ashita')
+  const [currentHook, setCurrentHook] = useState('Updating or Installing Ashita (This may take a while...)')
   useEffect(() => {
     try{
       window.electron.ipcRenderer.newUpdateAshita()
@@ -25,8 +25,6 @@ export default function Launcher() {
         setCurrentHook('updating repositories')
         window.electron.ipcRenderer.updateRepositories()
       })
-
-      window.electron.ipcRenderer.updateRepositories()
 
       window.electron.ipcRenderer.onUpdateRepositories(() => {
         setCurrentHook('ensuring profiles')
@@ -45,8 +43,9 @@ export default function Launcher() {
         })
       })
     } catch (e) {
-      console.error(e)
+      // console.error(e)
     }
+    
   }, [])
 
   return (

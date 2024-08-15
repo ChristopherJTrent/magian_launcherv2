@@ -9,7 +9,7 @@ export default function AddonListing() {
   const addons = useAppSelector(state => state.addons)
   const profile = useAppSelector(currentProfile)
   useEffect(() => {
-    console.log(profile)
+    // console.log(profile)
   })
   return <>
     <Flex

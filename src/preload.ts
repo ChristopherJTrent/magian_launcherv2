@@ -1,6 +1,6 @@
 // Disable no-unused-vars, broken for spread args
 /* eslint no-unused-vars: off */
-import { contextBridge, ipcRenderer} from 'electron'
+import { contextBridge, ipcRenderer, IpcRendererEvent} from 'electron'
 import Profile from './lib/data/Profile'
 import { AddonData } from './lib/util/helpers/getExtensionData'
 
@@ -37,6 +37,11 @@ const electronHandler = {
     },
     onUpdateRepositories: (callback: () => void) => {
       ipcRenderer.on('magian:legacy:updateRepositories:reply', () => callback())
+    },
+    onTriggerLoadProfiles: (callback: (e:IpcRendererEvent) => void) => {
+      ipcRenderer.on(`magian:triggers:loadProfile`, (e) => {
+        callback(e)
+      })
     }
   },
 }
