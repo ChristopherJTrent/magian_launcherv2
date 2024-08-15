@@ -2,10 +2,7 @@ import { app, BrowserWindow, ipcMain} from 'electron'
 import path from 'path'
 import { updateElectronApp } from 'update-electron-app'
 import registerIPCCallbacks from './ipcHandlers'
-import { config } from 'dotenv'
 import { initialize, trackEvent } from '@aptabase/electron/main'
-
-config()
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -13,7 +10,7 @@ if (require('electron-squirrel-startup')) {
 }
 
 try{
-  initialize(process.env.APTABASE_APP_KEY!)
+  initialize("A-US-8067583313")
 } catch (e) {
   console.error(e)
 }
