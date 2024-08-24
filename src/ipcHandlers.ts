@@ -8,7 +8,8 @@ import saveScript from "./lib/util/IO/ScriptLoader"
 import { ensureGit } from "./lib/util/Installation/paths"
 import { getAddonData } from "./lib/util/helpers/getExtensionData"
 import { deleteProfile } from "@lib/util/Installation/Profile"
-import { ensureProfilesCallback, installAshitaCallback, updateRepositoriesCallback } from "ipcCallbacks"
+import { ensureProfilesCallback, installAshitaCallback, installRepositoryCallback, updateRepositoriesCallback } from "ipcCallbacks"
+import { getInstalledRepositories } from "Zod/installedRepositories"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type IPCHandler = {channel: string, listener: (event:IpcMainInvokeEvent, ...args: any[]) => Promise<unknown>}
@@ -79,6 +80,13 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
         // console.log('received delete profile for '+name)
         await deleteProfile(name)
       }
+    },
+    {
+      channel: 'magian:getInstalledRepositories',
+      listener: async () => {
+        const installed = getInstalledRepositories()
+        return installed.success ? installed.data : []
+      }
     }
   ]
   const legacyHandlers: LegacyIPCHandler[] = [
@@ -93,6 +101,10 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
     {
       channel: 'magian:legacy:updateRepositories',
       listener: updateRepositoriesCallback
+    },
+    {
+      channel: 'magian:legacy:installRepository',
+      listener: installRepositoryCallback
     }
   ]
 

@@ -3,6 +3,7 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent} from 'electron'
 import Profile from './lib/data/Profile'
 import { AddonData } from './lib/util/helpers/getExtensionData'
+import { statefulRepo } from '@lib/store/repositoriesReducer'
 
 export type Channels = 'ipc-example'
 
@@ -25,6 +26,8 @@ const electronHandler = {
     newUpdateAshita: () => { ipcRenderer.send('magian:legacy:installAshita') },
     updateRepositories: () => {ipcRenderer.send('magian:legacy:updateRepositories')},
     deleteProfile: (name: string) => {ipcRenderer.invoke('magian:deleteProfile', name)},
+    getInstalledRepositories: () => ipcRenderer.invoke('magian:getInstalledRepositories') as Promise<statefulRepo[]>,
+    installRepository: (remote: string) => ipcRenderer.send('magian:legacy:installRepository', remote),
     onUpdateAshita: ( callback: () => void) => {
       ipcRenderer.on('magian:legacy:installAshita:reply', () => {
         callback()
@@ -42,6 +45,9 @@ const electronHandler = {
       ipcRenderer.on(`magian:triggers:loadProfile`, (e) => {
         callback(e)
       })
+    },
+    onInstallRepository: (callback: (e:IpcRendererEvent) => void) => {
+      ipcRenderer.once('magian:legacy:installRepository:reply', (e) => {callback(e)})
     }
   },
 }

@@ -12,9 +12,9 @@ import PluginListing from "@widgets/Tabs/Plugins/PluginListing"
 import { useAppDispatch } from "@store/store"
 import handleApplicationLoad from "lib/util/Installation/Loader"
 import PolPluginListing from "@widgets/Tabs/PolPlugins/PolPluginListing"
+import RepositoryListing from "./Widgets/Tabs/Repositories/RepositoryListing"
 
 export default function Launcher() {
-  // const remainingHooks = useAppSelector(state => state.flags.remainingHooks)
   const dispatch = useAppDispatch()
   const [currentHook, setCurrentHook] = useState('Updating or Installing Ashita (This may take a while...)')
   useEffect(() => {
@@ -42,7 +42,7 @@ export default function Launcher() {
           })
         })
       })
-    } catch (e) {
+    } catch (_e) {
       // console.error(e)
     }
     
@@ -158,7 +158,7 @@ export default function Launcher() {
           <GamepadEditor />
         </TabPanel> */}
         <TabPanel>
-          <Text>Repositories are coming soon...</Text>
+          <RepositoryListing />
         </TabPanel>
       </TabPanels>
     </Tabs> || <Flex justify='center' align='center' width='100%' height='calc(100vh - 30px)' direction='column'>

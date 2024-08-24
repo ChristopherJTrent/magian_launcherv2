@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain} from 'electron'
+import { app, BrowserWindow, ipcMain, shell} from 'electron'
 import path from 'path'
 import { updateElectronApp } from 'update-electron-app'
 import registerIPCCallbacks from './ipcHandlers'
@@ -50,6 +50,11 @@ const getAssetPath = (...paths: string[]): string => {
     maximizable: false
   })
 
+  mainWindow.webContents.setWindowOpenHandler(details => {
+    shell.openExternal(details.url)
+    return { action: 'deny' }
+  })
+
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL)
@@ -62,6 +67,7 @@ const getAssetPath = (...paths: string[]): string => {
     mainWindow.webContents.openDevTools()
   }
 }
+
 
 
 

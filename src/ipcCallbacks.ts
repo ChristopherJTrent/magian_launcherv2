@@ -11,23 +11,29 @@ import { join } from "path"
 import { getInstalledRepositories } from "Zod/installedRepositories"
 
 export const updateRepositoriesCallback = (e: IpcMainEvent) => {
-    const remote = 'gh:ChristopherJTrent/magian_launcherv2@master/exampleRepo.yaml'
-    const repos = getInstalledRepositories()
-    if (repos.success && repos.data.some((v) => v.remote === remote )) {
-      // console.log('file found, data read. repositories updating...')
-      // this is gross and I hate it, but this is the only way to get it to work. Thanks @node_maintainers
-      Promise.all(doRepositoryUpdates() ?? []).then(() => {
-        GarbageCollector.instance.run()
-        e.reply('magian:legacy:updateRepositories:reply')
-      })
-    } else {
-      // console.log(`error in updateRepositoriesCallback: ${repos.error}, object: ${repos}`)
-      installRemoteRepository(remote).then(() => {
-        GarbageCollector.instance.run()
-        e.reply('magian:legacy:updateRepositories:reply')
-      })
-    }
+  const remote = 'gh:ChristopherJTrent/magian_launcherv2@master/exampleRepo.yaml'
+  const repos = getInstalledRepositories()
+  if (repos.success && repos.data.some((v) => v.remote === remote )) {
+    // console.log('file found, data read. repositories updating...')
+    // this is gross and I hate it, but this is the only way to get it to work. Thanks @node_maintainers
+    Promise.all(doRepositoryUpdates() ?? []).then(() => {
+      GarbageCollector.instance.run()
+      e.reply('magian:legacy:updateRepositories:reply')
+    })
+  } else {
+    // console.log(`error in updateRepositoriesCallback: ${repos.error}, object: ${repos}`)
+    installRemoteRepository(remote).then(() => {
+      GarbageCollector.instance.run()
+      e.reply('magian:legacy:updateRepositories:reply')
+    })
   }
+}
+
+export const installRepositoryCallback = (e: IpcMainEvent, location: string) => {
+  installRemoteRepository(location).then(() => {
+    e.reply('magian:legacy:installRepository:reply')
+  })
+}
 
 export const ensureProfilesCallback = (e: IpcMainEvent) => {
     const doProfiles = () => {
