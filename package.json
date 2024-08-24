@@ -1,8 +1,8 @@
 {
   "name": "magian-launcher",
   "productName": "magian-launcher",
-  "version": "1.0.0-alpha.3",
-  "description": "Launcher for a 22-year old MMORPG, Final Fantasy XI Online",
+  "version": "1.0.0-alpha.4",
+  "description": "Launcher for Final Fantasy XI Online, using the Ashita V4 modding framework",
   "main": ".vite/build/main.js",
   "repository": "github:ChristopherJTrent/magian_launcherv2",
   "scripts": {

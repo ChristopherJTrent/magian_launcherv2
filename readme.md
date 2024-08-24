@@ -19,10 +19,11 @@ We receive the following information:
 * Manages an [Ashita v4](https://github.com/AshitaXI/Ashita-v4Beta) installation.
 * Generates the appropriate configuration files
 * Manages profiles (no more having separate shortcuts for private and retail servers)
+* Downloads new addons and plugins from online repositories
 
 ### Planned features
-* Downloads new addons and plugins from online repositories
 * Interfaces with Ashita through a plugin, allowing for in-game addon and plugin management.
+* allows for extension repositories to be uninstalled
 
 ## Building
 ### Requirements
