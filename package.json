@@ -68,5 +68,6 @@
     "update-electron-app": "^3.0.0",
     "yaml": "^2.4.5",
     "zod": "^3.23.8"
-  }
+  },
+  "packageManager": "yarn@4.4.1"
 }
