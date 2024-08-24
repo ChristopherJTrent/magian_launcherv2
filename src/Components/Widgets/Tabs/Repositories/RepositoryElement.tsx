@@ -45,7 +45,7 @@ export default function RepositoryElement({repository}:repositoryElementProps) {
                                              target="_blank" 
                                              margin={0} 
                                              textDecor='underline'
-                            >{file}@{branch}</Link>
+                            >{file ?? "repo.yaml"}@{branch ?? "main"}</Link>
                         </Text>
                     </Flex>
                 </Flex>

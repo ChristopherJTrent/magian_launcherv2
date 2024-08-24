@@ -27,6 +27,7 @@ const electronHandler = {
     updateRepositories: () => {ipcRenderer.send('magian:legacy:updateRepositories')},
     deleteProfile: (name: string) => {ipcRenderer.invoke('magian:deleteProfile', name)},
     getInstalledRepositories: () => ipcRenderer.invoke('magian:getInstalledRepositories') as Promise<statefulRepo[]>,
+    installRepository: (remote: string) => ipcRenderer.send('magian:legacy:installRepository', remote),
     onUpdateAshita: ( callback: () => void) => {
       ipcRenderer.on('magian:legacy:installAshita:reply', () => {
         callback()
@@ -46,7 +47,7 @@ const electronHandler = {
       })
     },
     onInstallRepository: (callback: (e:IpcRendererEvent) => void) => {
-      ipcRenderer.on('magian:legacy:installRepository:reply', (e) => {callback(e)})
+      ipcRenderer.once('magian:legacy:installRepository:reply', (e) => {callback(e)})
     }
   },
 }
