@@ -1,21 +1,20 @@
-import { IpcMain, IpcMainInvokeEvent } from "electron"
-import { readdir } from "fs/promises"
-import { existsSync } from "fs"
+import { IpcMain, IpcMainEvent, IpcMainInvokeEvent } from "electron"
 import updateAshita from "./lib/util/Installation/Ashita"
-import { initializeProfile, loadProfiles, saveProfile } from "./lib/util/IO/ProfileLoader"
+import { loadProfiles, saveProfile } from "./lib/util/IO/ProfileLoader"
 import {getAddonList, getPluginList, getPolPluginList} from "./lib/util/Installation/Extensions"
 import Profile from "@data/Profile"
 import spawnAshita from "./lib/util/helpers/spawnAshita"
 import saveScript from "./lib/util/IO/ScriptLoader"
-import { PROFILE_LOCATION, ensureGit } from "./lib/util/Installation/paths"
+import { ensureGit } from "./lib/util/Installation/paths"
 import { getAddonData } from "./lib/util/helpers/getExtensionData"
-import { initialProfiles } from "@data/DefaultProfile"
-import { join } from "path"
 import { deleteProfile } from "@lib/util/Installation/Profile"
+import { ensureProfilesCallback, installAshitaCallback, installRepositoryCallback, updateRepositoriesCallback } from "ipcCallbacks"
+import { getInstalledRepositories } from "Zod/installedRepositories"
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type IPCHandler = {channel: string, listener: (event:IpcMainInvokeEvent, ...args: any[]) => Promise<unknown>}
-
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type LegacyIPCHandler = {channel: string, listener: (event: IpcMainEvent, ...args: any[]) => void}
 export default function registerIPCCallbacks(ipcMain:IpcMain):void {
   const handlers:IPCHandler[] = [
     {
@@ -78,53 +77,38 @@ export default function registerIPCCallbacks(ipcMain:IpcMain):void {
     {
       channel: 'magian:deleteProfile',
       listener: async(_, name:string) => {
-        console.log('received delete profile for '+name)
+        // console.log('received delete profile for '+name)
         await deleteProfile(name)
+      }
+    },
+    {
+      channel: 'magian:getInstalledRepositories',
+      listener: async () => {
+        const installed = getInstalledRepositories()
+        return installed.success ? installed.data : []
       }
     }
   ]
+  const legacyHandlers: LegacyIPCHandler[] = [
+    {
+      channel: 'magian:legacy:installAshita',
+      listener: installAshitaCallback
+    },
+    {
+      channel: 'magian:ensureProfiles',
+      listener: ensureProfilesCallback
+    },
+    {
+      channel: 'magian:legacy:updateRepositories',
+      listener: updateRepositoriesCallback
+    },
+    {
+      channel: 'magian:legacy:installRepository',
+      listener: installRepositoryCallback
+    }
+  ]
+
   handlers.forEach((v) => ipcMain.handle(v.channel, v.listener))
-  ipcMain.on('magian:legacy:installAshita', (e) => {
-    try{
-    ensureGit().then(() => {
-      updateAshita().then(() => {
-        e.reply('magian:legacy:installAshita:reply')
-      })
-    })
-  } catch(err) {
-    console.error(err)
-  }})
-  ipcMain.on('magian:ensureProfiles', (e) => {
-    const doProfiles = () => {
-      initializeProfile(initialProfiles.list.default.name)
-      initializeProfile(initialProfiles.list.omicron.name)
-      saveProfile(initialProfiles.list.default).then(() => {
-        saveProfile(initialProfiles.list.omicron).then(() => {
-          e.reply('magian:ensureProfiles:reply')
-        }).catch()
-      }).catch()
-    }
+  legacyHandlers.forEach(v => ipcMain.on(v.channel, v.listener))
 
-
-    if(!existsSync(PROFILE_LOCATION)) {
-      doProfiles()
-    } else {
-      // eslint-disable-next-line consistent-return
-      readdir(PROFILE_LOCATION, {withFileTypes: true}).then(entries => {
-        if(entries
-          .filter(entry => entry.isDirectory())
-          .filter(entry => existsSync(join(PROFILE_LOCATION, entry.name, 'profile.json')))
-          .length === 0) {
-            console.log("saving profiles...")
-            doProfiles()
-          } else {
-            console.log("Profiles already exist")
-            e.reply('magian:ensureProfiles:reply')
-          }
-        }).catch((e) => {
-          console.error(e)
-        })
-      }
-    }
-  )
 }

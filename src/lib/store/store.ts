@@ -7,6 +7,7 @@ import ProfileReducer from "./ProfileReducer"
 import pluginsReducer from "./pluginsReducer"
 import loaderReducer from "./loaderReducer"
 import polPluginsReducer from "./polPluginsReducer"
+import repositoriesReducer from "./repositoriesReducer"
 
 export const store = configureStore({
 	reducer: {
@@ -16,7 +17,8 @@ export const store = configureStore({
     plugins: pluginsReducer,
     profiles: ProfileReducer,
     loader: loaderReducer,
-    polPlugins: polPluginsReducer
+    polPlugins: polPluginsReducer,
+    repositories: repositoriesReducer
 	},
   middleware: (getDefaultMiddleware) => getDefaultMiddleware({
     serializableCheck: false

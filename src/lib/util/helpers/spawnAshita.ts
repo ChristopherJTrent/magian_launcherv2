@@ -22,6 +22,6 @@ export default async function spawnAshita(scriptName:string) {
       }
     )
   } catch (e) {
-    console.error(e)
+    // console.error(e)
   }
 }

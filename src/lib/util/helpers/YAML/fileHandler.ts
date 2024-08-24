@@ -1,7 +1,8 @@
 import { existsSync, PathLike} from "fs"
 import { readFile } from "fs/promises"
 import { parse } from "yaml"
-import RepositoryValidator, {repoRegex, type Repository} from "Zod/Repository"
+import RepositoryValidator, {type Repository} from "Zod/Repository"
+import { convertLocation } from "./convertLocation"
 
 /**
  * Loads a yaml file from disk and converts it into an object.
@@ -17,19 +18,8 @@ export async function loadYamlFile(path: PathLike): Promise<Repository> {
     }
 }
 
-function convertLocation(input: string): string {
-    if(input.startsWith('http')) {
-        console.log('convertLocation passed URL')
-        return input
-    }
-    const {service, user, repo, branch, file} = repoRegex.exec(input)?.groups ?? {}
-
-    return service === 'gh:' 
-        ? `https://raw.githubusercontent.com/${user}/${repo}/${branch ?? 'main'}/${file ?? 'repo.yaml'}`
-        : `https://gitlab.com/${user}/${repo}/-/raw/${branch ?? 'main'}/${file ?? 'repo.yaml'}?ref_type=heads`
-}
-
 export async function downloadYamlFile(location: string): Promise<Repository> {
     const repo = RepositoryValidator.safeParse(parse(await (await fetch(convertLocation(location))).text()))
+    // console.log(repo.success ? repo.data : repo.error)
     return repo.success ? {...repo.data, success: true} : {success: false, version: '1.0.0-invalid', downloads: []}
 }

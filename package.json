@@ -1,13 +1,13 @@
 {
   "name": "magian-launcher",
   "productName": "magian-launcher",
-  "version": "1.0.0-alpha.3",
-  "description": "Launcher for a 22-year old MMORPG, Final Fantasy XI Online",
+  "version": "1.0.0-alpha.4",
+  "description": "Launcher for Final Fantasy XI Online, using the Ashita V4 modding framework",
   "main": ".vite/build/main.js",
   "repository": "github:ChristopherJTrent/magian_launcherv2",
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
+    "start": "env-cmd electron-forge start",
+    "package": "env-cmd electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts,.tsx ."
@@ -29,6 +29,7 @@
     "@types/react-dom": "^18.3.0",
     "@types/semver": "^7.5.8",
     "electron": "31.1.0",
+    "env-cmd": "^10.1.0",
     "eslint": "^8.57.0",
     "eslint-import-resolver-typescript": "^3.6.1",
     "eslint-plugin-import": "^2.29.1",
@@ -36,6 +37,7 @@
     "typescript": "^5.5.3",
     "typescript-eslint": "^7.16.1",
     "vite": "^5.3.1",
+    "vite-plugin-environment": "^1.1.3",
     "vite-tsconfig-paths": "^4.3.2"
   },
   "keywords": [],
@@ -52,7 +54,6 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@reduxjs/toolkit": "^2.2.6",
-    "dotenv": "^16.4.5",
     "electron-devtools-installer": "^3.2.0",
     "electron-squirrel-startup": "^1.0.1",
     "extract-zip": "^2.0.1",

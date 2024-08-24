@@ -1,36 +1,25 @@
-import { app, BrowserWindow, ipcMain} from 'electron'
+import { app, BrowserWindow, ipcMain, shell} from 'electron'
 import path from 'path'
 import { updateElectronApp } from 'update-electron-app'
 import registerIPCCallbacks from './ipcHandlers'
-import doRepositoryUpdates, { installRemoteRepository } from '@lib/util/Installation/RepositoryInstaller'
-import { getInstalledRepositories } from 'Zod/installedRepositories'
-import { config } from 'dotenv'
 import { initialize, trackEvent } from '@aptabase/electron/main'
-
-config()
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
   app.quit()
 }
 
-initialize(process.env.APTABASE_APP_KEY!)
+try{
+  initialize("A-US-8067583313")
+} catch (e) {
+  console.error(e)
+}
 
 registerIPCCallbacks(ipcMain)
 
 updateElectronApp()
 
-{
-  const remote = 'gh:ChristopherJTrent/magian_launcherv2@master/exampleRepo.yaml'
-  const repos = getInstalledRepositories()
-  if (repos.success && repos.data.some((v) => v.remote === remote )) {
-    console.log('file found, data read. repositories updating...')
-    doRepositoryUpdates()
-  } else {
-    console.log(repos.error)
-    installRemoteRepository(remote)
-  }
-}
+
 
 const createWindow = () => {
   trackEvent('appLoaded')
@@ -61,6 +50,11 @@ const getAssetPath = (...paths: string[]): string => {
     maximizable: false
   })
 
+  mainWindow.webContents.setWindowOpenHandler(details => {
+    shell.openExternal(details.url)
+    return { action: 'deny' }
+  })
+
   // and load the index.html of the app.
   if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL)
@@ -73,6 +67,7 @@ const getAssetPath = (...paths: string[]): string => {
     mainWindow.webContents.openDevTools()
   }
 }
+
 
 
 

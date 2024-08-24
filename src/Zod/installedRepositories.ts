@@ -19,7 +19,7 @@ export function getInstalledRepositories() {
             ).toString()
         ))
     } catch (err) {
-        console.log(err)
+        // console.log(err)
         return installedRepositories.safeParse([])
     }
 }
