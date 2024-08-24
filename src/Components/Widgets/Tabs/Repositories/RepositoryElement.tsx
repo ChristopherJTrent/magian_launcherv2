@@ -33,7 +33,7 @@ export default function RepositoryElement({repository}:repositoryElementProps) {
                             <Text>Maintainer: {user}</Text>
                             <IconButton as={ service == 'gh:' ? FaGithub : FaGitlab } 
                                 aria-label={service == 'gh:' ? "Github Logo" : "Gitlab Logo"}
-                                onClick={() => {window.open(uri, "_blank")}}
+                                onClick={() => {window.open(`https://git${service == 'gh:'? 'hub' : 'lab'}.com/${user}/${repo}`, "_blank")}}
                                 size='xs'
                                 marginLeft='5px'
                                 padding='2px'
