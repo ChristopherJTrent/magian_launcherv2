@@ -6,7 +6,6 @@ import { DInputBindings, DInputButtons, XInputBindings, XInputButtons } from "..
 type UIDef = {
   key: string
   label: string
-
 }
 
 const toggleUIDefs:UIDef[] = [
@@ -147,9 +146,6 @@ const bindingUIDefs:UIDef[] = [
   }
 ]
 export default function GamepadEditor() {
-
-
-
   const flags = useAppSelector((state) => state.gamepad.toggles)
   const bindings = useAppSelector((state) => state.gamepad.bindings)
   const dispatch = useAppDispatch()
