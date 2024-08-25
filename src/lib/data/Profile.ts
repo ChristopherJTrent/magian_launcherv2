@@ -1,4 +1,4 @@
-import AshitaSettings from "./AshitaSettings"
+import AshitaSettings from "./ashitaSettings"
 
 export const defaultPlugins = [
   'thirdparty',

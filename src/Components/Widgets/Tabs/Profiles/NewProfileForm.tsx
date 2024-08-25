@@ -24,7 +24,7 @@ import {
 } from "@chakra-ui/react"
 import { useState } from "react"
 import EditableControls from "../../EditableControls"
-import Profile, { defaultAddons, defaultPlugins, defaultPolPlugins } from "@data/Profile"
+import Profile, { defaultAddons, defaultPlugins, defaultPolPlugins } from "@lib/data/profile"
 import { useAppDispatch } from "@store/store"
 import { receiveProfile } from "@store/ProfileReducer"
 

@@ -1,4 +1,4 @@
-import { initialProfiles } from "@lib/data/DefaultProfile"
+import { initialProfiles } from "@lib/data/defaultProfile"
 import updateAshita from "@lib/util/Installation/Ashita"
 import GarbageCollector from "@lib/util/Installation/GarbageCollector"
 import { ensureGit, PROFILE_LOCATION } from "@lib/util/Installation/paths"

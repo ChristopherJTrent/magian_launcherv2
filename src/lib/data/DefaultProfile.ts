@@ -1,4 +1,4 @@
-import Profile from "./Profile"
+import Profile from "./profile"
 
 export type profilesMapping = {
   currentProfile:string

@@ -1,6 +1,6 @@
 import { readFileSync } from "fs"
 import { ADDON_LOCATION } from "../Installation/paths"
-import Addon from "@data/Addon"
+import Addon from "@lib/data/addon"
 import { join } from "path"
 
 export type AddonData = {
