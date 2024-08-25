@@ -1,4 +1,5 @@
 import AshitaSettings from "./ashitaSettings"
+import { GamepadState } from "@lib/store/gamepadState"
 
 export const defaultPlugins = [
   'thirdparty',
@@ -28,6 +29,8 @@ export default class Profile {
   public enabledPolPlugins: string[]
 
   public settings: AshitaSettings
+
+  public gamepadSettings?: GamepadState
 
   public serverType: ('retail'|'private')
 

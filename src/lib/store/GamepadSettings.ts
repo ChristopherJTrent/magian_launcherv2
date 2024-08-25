@@ -14,6 +14,10 @@ export const gamepadSlice = createSlice({
   name: 'gamepad',
   initialState,
   reducers: {
+    receiveGamepadState: (state: GamepadState, action: PayloadAction<GamepadState | undefined>) => {
+      state.toggles = action.payload?.toggles ?? xinputDefault.toggles
+      state.bindings = action.payload?.bindings ?? xinputDefault.bindings
+    },
     setToggle: (state: GamepadState, action: PayloadAction<overwriteParams<boolean>>) => {
       state.toggles[action.payload.name as keyof typeof state.toggles]
         = action.payload.value
@@ -25,6 +29,6 @@ export const gamepadSlice = createSlice({
   }
 })
 
-export const {setToggle, setBinding} = gamepadSlice.actions
+export const {setToggle, setBinding, receiveGamepadState} = gamepadSlice.actions
 
 export default gamepadSlice.reducer
