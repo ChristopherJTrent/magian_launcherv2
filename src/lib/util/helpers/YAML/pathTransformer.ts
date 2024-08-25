@@ -3,7 +3,7 @@
 import { ADDON_LOCATION, ASHITA_LOCATION, PLUGIN_LOCATION, POL_PLUGIN_LOCATION } from "@lib/util/Installation/paths"
 import { join } from "path"
 import { pathTransformer } from "../../../data/pathTransformer"
-import { Repository } from "Zod/Repository"
+import { Repository } from "Zod/repository"
 
 export const defaultTransformers: pathTransformer[] = [
     {

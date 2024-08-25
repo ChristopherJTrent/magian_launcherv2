@@ -1,6 +1,6 @@
 import { z } from "zod"
 import validateSemver from 'semver/functions/valid'
-import { repoRegex } from "./Repository"
+import { repoRegex } from "./repository"
 import { existsSync, readFileSync, writeFileSync } from "fs"
 import { join } from "path"
 import { INSTALL_LOCATION } from "@lib/util/Installation/paths"

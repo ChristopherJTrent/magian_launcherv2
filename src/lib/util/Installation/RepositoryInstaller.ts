@@ -1,5 +1,5 @@
 import { cpSync, existsSync, mkdirSync, PathLike } from "fs"
-import { Repository } from "Zod/Repository"
+import { Repository } from "Zod/repository"
 import { ASHITA_LOCATION, DOWNLOADS_LOCATION, INSTALL_LOCATION } from "./paths"
 import { z } from "zod"
 import DownloadFile from "../IO/fileDownloader"

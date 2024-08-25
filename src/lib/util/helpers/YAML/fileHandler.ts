@@ -1,7 +1,7 @@
 import { existsSync, PathLike} from "fs"
 import { readFile } from "fs/promises"
 import { parse } from "yaml"
-import RepositoryValidator, {type Repository} from "Zod/Repository"
+import RepositoryValidator, {type Repository} from "Zod/repository"
 import { convertLocation } from "./convertLocation"
 
 /**

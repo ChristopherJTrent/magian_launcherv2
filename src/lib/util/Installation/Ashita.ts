@@ -1,5 +1,5 @@
 import { existsSync } from "fs"
-import { getAshitaStatus, installAshita, pullAshita } from "../Git"
+import { getAshitaStatus, installAshita, pullAshita } from "../git"
 import ensureInstallLocation from "./launcher"
 import { ASHITA_LOCATION } from "./paths"
 

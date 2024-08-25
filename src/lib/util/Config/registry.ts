@@ -1,4 +1,4 @@
-import { Dictionary } from "../Types"
+import { Dictionary } from "../types"
 import { padModes } from "./registryDefinition"
 
 export const registryKeys = {
