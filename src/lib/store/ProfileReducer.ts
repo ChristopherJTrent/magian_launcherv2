@@ -90,11 +90,11 @@ export const profileSlice = createSlice({
       }
     },
     setAddonEnabled:   enableExtension('enabledAddons'),
-    enablePolPlugin:   enableExtension('enabledPolPlugins'),
+    setPolPluginEnabled:   enableExtension('enabledPolPlugins'),
     setPluginEnabled:  enableExtension('enabledPlugins'),
     setAddonDisabled:  disableExtension('enabledAddons'),
     setPluginDisabled: disableExtension('enabledPlugins'),
-    disablePolPlugin:  disableExtension('enabledPolPlugins'),
+    setPolPluginDisabled:  disableExtension('enabledPolPlugins'),
     setSettingsValue: (state:profilesMapping, action:PayloadAction<{field:string, value: unknown}>) => {
       // @ts-expect-error this errors for an unknown reason, but it works.
       state.list[state.currentProfile]
@@ -113,8 +113,8 @@ export const {
   setPluginDisabled,
   setSettingsValue,
   setActiveProfile,
-  enablePolPlugin,
-  disablePolPlugin,
+  setPolPluginEnabled,
+  setPolPluginDisabled,
   removeProfile
 } = profileSlice.actions
 

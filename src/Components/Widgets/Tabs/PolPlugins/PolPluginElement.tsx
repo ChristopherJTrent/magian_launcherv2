@@ -1,6 +1,6 @@
 import { ListItem, Switch } from "@chakra-ui/react"
 import { changeProfile } from "@store/flagsReducer"
-import { disablePolPlugin, enablePolPlugin, extensionEnabled } from "@store/ProfileReducer"
+import { setPolPluginDisabled, setPolPluginEnabled, extensionEnabled } from "@store/ProfileReducer"
 import { useAppDispatch, useAppSelector } from "@store/store"
 
 type PolPluginElementProps = {
@@ -19,7 +19,7 @@ export default function PolPluginElement({name}:PolPluginElementProps) {
         <Switch isChecked={polPluginEnabled}
           onChange={() => {
             dispatch(changeProfile())
-            dispatch(polPluginEnabled ? disablePolPlugin(name) : enablePolPlugin(name))
+            dispatch(polPluginEnabled ? setPolPluginDisabled(name) : setPolPluginEnabled(name))
           }} />
     </ListItem>
 }
