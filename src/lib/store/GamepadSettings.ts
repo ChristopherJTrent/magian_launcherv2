@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { xinputDefault } from "../util/Config/DefaultConfiguration"
+import { xinputDefault } from "../util/Config/defaultConfiguration"
 import { GamepadState } from "./gamepadState"
 
 const initialState:GamepadState = xinputDefault
