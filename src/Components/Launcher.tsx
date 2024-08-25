@@ -10,7 +10,7 @@ import SettingsEditor from "@widgets/SettingsEditor"
 import ProfileListing from "@widgets/Tabs/Profiles/ProfileListing"
 import PluginListing from "@widgets/Tabs/Plugins/PluginListing"
 import { useAppDispatch } from "@store/store"
-import handleApplicationLoad from "lib/util/Installation/Loader"
+import handleApplicationLoad from "@lib/util/Installation/loader"
 import PolPluginListing from "@widgets/Tabs/PolPlugins/PolPluginListing"
 import RepositoryListing from "./Widgets/Tabs/Repositories/RepositoryListing"
 

@@ -1,6 +1,6 @@
 import { existsSync } from "fs"
 import { getAshitaStatus, installAshita, pullAshita } from "../Git"
-import ensureInstallLocation from "./Launcher"
+import ensureInstallLocation from "./launcher"
 import { ASHITA_LOCATION } from "./paths"
 
 export default async function updateAshita():Promise<void> {

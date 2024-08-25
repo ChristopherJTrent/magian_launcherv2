@@ -9,7 +9,7 @@ import { downloadYamlFile } from "../helpers/YAML/fileHandler"
 import { addInstalledRepository, getInstalledRepositories } from "Zod/installedRepositories"
 import parseSemver from 'semver/functions/parse'
 import validateSemver from 'semver/functions/valid'
-import GarbageCollector from "./GarbageCollector"
+import GarbageCollector from "./garbageCollector"
 
 export function ensureDirectories() {
     if(!existsSync(DOWNLOADS_LOCATION)) mkdirSync(DOWNLOADS_LOCATION, {recursive: true})

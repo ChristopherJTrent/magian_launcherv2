@@ -5,7 +5,7 @@ import Profile from "@lib/data/profile"
 import { dumpAshitaSettings } from "../Config/iniHelper"
 import { generateHookScript, generateManagedScript } from "@lib/data/scripts"
 import { join } from "path"
-import setupProfileDirectories from "../Installation/Profile"
+import setupProfileDirectories from "../Installation/profile"
 
 export async function loadProfiles():Promise<Profile[]> {
   return Promise.all((await readdir(PROFILE_LOCATION, {withFileTypes: true}))
