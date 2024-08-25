@@ -1,4 +1,4 @@
-import Extension from "./Extension"
+import Extension from "./extension"
 
 export default class Addon extends Extension {
   author: string

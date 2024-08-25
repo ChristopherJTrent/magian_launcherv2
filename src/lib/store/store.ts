@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit"
 import { useDispatch, useSelector } from "react-redux"
-import GamepadSettings from "./GamepadSettings"
+import GamepadSettings from "./gamepadSettings"
 import flagsReducer from "./flagsReducer"
 import addonsReducer from "./addonsReducer"
 import ProfileReducer from "./ProfileReducer"

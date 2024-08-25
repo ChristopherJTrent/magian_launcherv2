@@ -1,4 +1,4 @@
-import { GamepadState } from "./GamepadState"
+import { GamepadState } from "./gamepadState"
 import { RootState} from "./store"
 
 

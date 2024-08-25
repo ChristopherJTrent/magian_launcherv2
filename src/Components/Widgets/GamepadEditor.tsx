@@ -1,6 +1,6 @@
 import { Flex, Select, Switch } from "@chakra-ui/react"
 import { useAppDispatch, useAppSelector } from "@store/store"
-import { setBinding, setToggle } from "@store/GamepadSettings"
+import { setBinding, setToggle } from "@lib/store/gamepadSettings"
 import { DInputBindings, DInputButtons, XInputBindings, XInputButtons } from "../../lib/util/Config/RegistryDefinition"
 
 type UIDef = {
