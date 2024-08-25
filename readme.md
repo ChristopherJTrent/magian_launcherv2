@@ -24,6 +24,7 @@ We receive the following information:
 ### Planned features
 * Interfaces with Ashita through a plugin, allowing for in-game addon and plugin management.
 * allows for extension repositories to be uninstalled
+* allows for configuring gamepads inside the launcher
 
 ## Building
 ### Requirements
