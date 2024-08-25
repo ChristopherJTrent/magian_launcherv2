@@ -1,7 +1,7 @@
 import { Divider, Flex, IconButton, Link, ListItem, Text } from "@chakra-ui/react"
 import { statefulRepo } from "@lib/store/repositoriesReducer"
 import { convertLocation } from "@lib/util/helpers/YAML/convertLocation"
-import { repoRegex } from "Zod/Repository"
+import { repoRegex } from "Zod/repository"
 import { FaGithub, FaGitlab } from 'react-icons/fa'
 
 type repositoryElementProps = {repository: statefulRepo}

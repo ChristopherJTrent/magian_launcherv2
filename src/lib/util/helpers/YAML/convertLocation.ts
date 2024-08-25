@@ -1,4 +1,4 @@
-import { repoRegex } from "Zod/Repository"
+import { repoRegex } from "Zod/repository"
 
 export function convertLocation(input: string): string {
     if (input.startsWith('http')) {

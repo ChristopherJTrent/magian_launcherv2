@@ -2,7 +2,7 @@ import { DownloaderHelper } from 'node-downloader-helper'
 import { Url } from 'url'
 import { DOWNLOADS_LOCATION } from '../Installation/paths'
 import { join } from 'path'
-import GarbageCollector from '../Installation/GarbageCollector'
+import GarbageCollector from '../Installation/garbageCollector'
 
 export default async function DownloadFile(fileUrl: Url | string, fileName: string) {
     console.log(fileName)

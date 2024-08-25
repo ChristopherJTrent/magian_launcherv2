@@ -1,5 +1,5 @@
-import { Dictionary } from "../Types"
-import { padModes } from "./RegistryDefinition"
+import { Dictionary } from "../types"
+import { padModes } from "./registryDefinition"
 
 export const registryKeys = {
   MIPMAPLEVEL: '0000',

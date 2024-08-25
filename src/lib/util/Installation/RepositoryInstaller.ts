@@ -1,15 +1,15 @@
 import { cpSync, existsSync, mkdirSync, PathLike } from "fs"
-import { Repository } from "Zod/Repository"
+import { Repository } from "Zod/repository"
 import { ASHITA_LOCATION, DOWNLOADS_LOCATION, INSTALL_LOCATION } from "./paths"
 import { z } from "zod"
-import DownloadFile from "../IO/FileDownloader"
+import DownloadFile from "../IO/fileDownloader"
 import extract from "extract-zip"
 import { join } from "path"
 import { downloadYamlFile } from "../helpers/YAML/fileHandler"
 import { addInstalledRepository, getInstalledRepositories } from "Zod/installedRepositories"
 import parseSemver from 'semver/functions/parse'
 import validateSemver from 'semver/functions/valid'
-import GarbageCollector from "./GarbageCollector"
+import GarbageCollector from "./garbageCollector"
 
 export function ensureDirectories() {
     if(!existsSync(DOWNLOADS_LOCATION)) mkdirSync(DOWNLOADS_LOCATION, {recursive: true})

@@ -1,8 +1,8 @@
 import { PayloadAction, createSelector, createSlice } from "@reduxjs/toolkit"
-import Profile, { ExtensionField } from "@data/Profile"
+import Profile, { ExtensionField } from "@lib/data/profile"
 import { type RootState } from "./store"
-import { initialProfiles, profilesMapping } from "@data/DefaultProfile"
-import AshitaSettings from "@data/AshitaSettings"
+import { initialProfiles, profilesMapping } from "@lib/data/defaultProfile"
+import AshitaSettings from "@lib/data/ashitaSettings"
 
 export const extensionEnabled = (name: string, type: ExtensionField) => (state: RootState) => (
   (state.profiles.list[state.profiles.currentProfile][type] ?? []).includes(name)

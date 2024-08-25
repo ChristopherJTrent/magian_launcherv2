@@ -1,4 +1,4 @@
-import { GamepadState } from "../../store/GamepadState"
+import { GamepadState } from "../../store/gamepadState"
 import { generateRegistry } from "./registry"
 
 /* eslint-disable no-useless-computed-key */

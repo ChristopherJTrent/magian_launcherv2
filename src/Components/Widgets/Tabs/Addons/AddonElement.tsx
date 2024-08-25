@@ -3,7 +3,7 @@ import { Divider, Flex, ListItem, Switch, Text } from "@chakra-ui/react"
 import { extensionEnabled, setAddonDisabled, setAddonEnabled } from "@store/ProfileReducer"
 import { useAppDispatch } from "@store/store"
 import { changeProfile } from "@store/flagsReducer"
-import Addon from "@data/Addon"
+import Addon from "@lib/data/addon"
 
 export type AddonElementProps = {
   addon: Addon

@@ -1,11 +1,11 @@
 import { mkdir, readFile, readdir, writeFile } from "fs/promises"
 import { existsSync, mkdirSync } from "fs"
 import { CONFIGURATION_LOCATION, MANAGED_SCRIPT_LOCATION, PROFILE_LOCATION, SCRIPT_LOCATION } from "../Installation/paths"
-import Profile from "@data/Profile"
-import { dumpAshitaSettings } from "../Config/INIHelper"
-import { generateHookScript, generateManagedScript } from "@data/Scripts"
+import Profile from "@lib/data/profile"
+import { dumpAshitaSettings } from "../Config/iniHelper"
+import { generateHookScript, generateManagedScript } from "@lib/data/scripts"
 import { join } from "path"
-import setupProfileDirectories from "../Installation/Profile"
+import setupProfileDirectories from "../Installation/profile"
 
 export async function loadProfiles():Promise<Profile[]> {
   return Promise.all((await readdir(PROFILE_LOCATION, {withFileTypes: true}))
