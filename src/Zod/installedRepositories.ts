@@ -18,7 +18,7 @@ export function getInstalledRepositories() {
                 join(INSTALL_LOCATION, 'repositories.json')
             ).toString()
         ))
-    } catch (err) {
+    } catch (_err) {
         // console.log(err)
         return installedRepositories.safeParse([])
     }
